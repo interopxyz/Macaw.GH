@@ -18,7 +18,7 @@ namespace Aviary.Macaw.GH
         /// Initializes a new instance of the BitmapViewer class.
         /// </summary>
         public ImageViewer()
-          : base("Image Viewer", "Image", "Description", "Display", "Image")
+          : base("Image Viewer", "Image", "Description", "Aviary 1", "Image")
         {
         }
 

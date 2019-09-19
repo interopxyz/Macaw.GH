@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH
         /// Initializes a new instance of the TraceImage class.
         /// </summary>
         public TraceImage()
-          : base("Trace Image", "Trace", "---", "Display", "Image")
+          : base("Trace Image", "Trace", "---", "Aviary 1", "Image")
         {
         }
 
