@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -8,13 +8,14 @@
     <ProjectGuid>{CAB73AAF-3320-4B7C-BB72-0398D7515C8D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Macaw.GH</RootNamespace>
-    <AssemblyName>Macaw.GH</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <RootNamespace>Aviary.Macaw.GH</RootNamespace>
+    <AssemblyName>Aviary.Macaw.GH</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -54,6 +55,7 @@
   <ItemGroup>
     <Compile Include="MacawViewer.cs" />
     <Compile Include="Macaw.GHInfo.cs" />
+    <Compile Include="Procedural\PerturbNoise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -71,6 +73,16 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Resources\Macaw-sm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Aviary\Macaw\Macaw\Macaw.csproj">
+      <Project>{901b570d-e798-4c1b-bca2-635c5c4e0e0a}</Project>
+      <Name>Macaw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Aviary\Wind\Wind\Wind.csproj">
+      <Project>{5b296bd0-780f-4e8a-a7ff-379f437b925a}</Project>
+      <Name>Wind</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

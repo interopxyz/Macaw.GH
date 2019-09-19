@@ -2,7 +2,7 @@
 using System.Drawing;
 using Grasshopper.Kernel;
 
-namespace Macaw.GH
+namespace Aviary.Macaw.GH
 {
     public class MacawGHInfo : GH_AssemblyInfo
   {

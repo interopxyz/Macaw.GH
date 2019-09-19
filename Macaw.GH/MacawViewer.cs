@@ -11,7 +11,7 @@ using Rhino.Geometry;
 // folder in Grasshopper.
 // You can use the _GrasshopperDeveloperSettings Rhino command for that.
 
-namespace Macaw.GH
+namespace Aviary.Macaw.GH
 {
     public class MacawViewer : GH_Component
     {
@@ -25,9 +25,7 @@ namespace Macaw.GH
         /// new tabs/panels will automatically be created.
         /// </summary>
         public MacawViewer()
-          : base("Macaw", "Nickname",
-              "Description",
-              "Display", "A")
+          : base("View Image", "Viewer", "Preview a bitmap in canvas", "Aviary 1", "Bitmap Out")
         {
         }
         public override void CreateAttributes()
