@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Macaw.GH")]
+[assembly: AssemblyTitle("Aviary.Macaw.GH")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Macaw.GH")]
+[assembly: AssemblyProduct("Aviary.Macaw.GH")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("cab73aaf-3320-4b7c-bb72-0398d7515c8d")]
+[assembly: Guid("61e856f8-6a47-418b-94b2-fbdedae3d2c2")]
 
 // Version information for an assembly consists of the following four values:
 //

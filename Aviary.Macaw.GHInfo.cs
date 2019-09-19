@@ -4,13 +4,13 @@ using Grasshopper.Kernel;
 
 namespace Aviary.Macaw.GH
 {
-    public class MacawGHInfo : GH_AssemblyInfo
+    public class AviaryMacawGHInfo : GH_AssemblyInfo
   {
     public override string Name
     {
         get
         {
-            return "MacawGH";
+            return "AviaryMacawGH";
         }
     }
     public override Bitmap Icon
@@ -33,7 +33,7 @@ namespace Aviary.Macaw.GH
     {
         get
         {
-            return new Guid("250c9dbf-d7c7-4280-844e-7bfa8bbe7c7d");
+            return new Guid("3437bc8b-87aa-4d62-bc8f-068422688a0d");
         }
     }
 

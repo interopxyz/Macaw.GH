@@ -6,7 +6,7 @@ using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-namespace Macaw.GH.Tracing
+namespace Aviary.Macaw.GH
 {
     public class TraceImage : GH_Component
     {

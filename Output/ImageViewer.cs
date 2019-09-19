@@ -4,30 +4,24 @@ using System.Drawing;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
-
-// In order to load the result of this wizard, you will also need to
-// add the output bin/ folder of this project to the list of loaded
-// folder in Grasshopper.
-// You can use the _GrasshopperDeveloperSettings Rhino command for that.
 
 namespace Aviary.Macaw.GH
 {
-    public class MacawViewer : GH_Component
+    public class ImageViewer : GH_Component
     {
         public Image img = null;
+        string message = "Nothing here";
 
         /// <summary>
-        /// Each implementation of GH_Component must provide a public 
-        /// constructor without any arguments.
-        /// Category represents the Tab in which the component will appear, 
-        /// Subcategory the panel. If you use non-existing tab or panel names, 
-        /// new tabs/panels will automatically be created.
+        /// Initializes a new instance of the BitmapViewer class.
         /// </summary>
-        public MacawViewer()
-          : base("View Image", "Viewer", "Preview a bitmap in canvas", "Aviary 1", "Bitmap Out")
+        public ImageViewer()
+          : base("Image Viewer", "Image", "Description", "Display", "Image")
         {
         }
+
         public override void CreateAttributes()
         {
             img = Properties.Resources.Macaw_sm;
@@ -39,8 +33,7 @@ namespace Aviary.Macaw.GH
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "A bitmap to preview", GH_ParamAccess.item);
-            pManager[0].Optional = true;
+            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -53,38 +46,45 @@ namespace Aviary.Macaw.GH
         /// <summary>
         /// This is the method that actually does the work.
         /// </summary>
-        /// <param name="DA">The DA object can be used to retrieve data from input parameters and 
-        /// to store data in output parameters.</param>
+        /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Bitmap bmp = Properties.Resources.Macaw_sm;
-            if (!DA.GetData<Bitmap>(0, ref bmp));
+            IGH_Goo goo = null;
 
-            img = bmp;
+            if (!DA.GetData(0, ref goo)) return;
+
+            Bitmap bitmap = new Bitmap(100, 100);
+            goo.CastTo<Bitmap>(out bitmap);
+
+            img = (Bitmap)bitmap.Clone();
+            message = bitmap.PixelFormat.ToString();
+            UpdateMessage();
+        }
+
+        private void UpdateMessage()
+        {
+            Message = message;
         }
 
         /// <summary>
-        /// Provides an Icon for every component that will be visible in the User Interface.
-        /// Icons need to be 24x24 pixels.
+        /// Provides an Icon for the component.
         /// </summary>
         protected override System.Drawing.Bitmap Icon
         {
             get
             {
-                // You can add image files to your project resources and access them like this:
-                //return Resources.IconForThisComponent;
+                //You can add image files to your project resources and access them like this:
+                // return Resources.IconForThisComponent;
                 return null;
             }
         }
 
         /// <summary>
-        /// Each component must have a unique Guid to identify it. 
-        /// It is vital this Guid doesn't change otherwise old ghx files 
-        /// that use the old ID will partially fail during loading.
+        /// Gets the unique ID for this component. Do not change this ID after release.
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("eba2de7a-71c8-485e-bae1-78660b645776"); }
+            get { return new Guid("8b1a4d1c-08d2-492e-b84c-b085c3aa4b0d"); }
         }
     }
 
@@ -96,7 +96,7 @@ namespace Aviary.Macaw.GH
         protected override void Layout()
         {
             base.Layout();
-            MacawViewer comp = Owner as MacawViewer;
+            ImageViewer comp = Owner as ImageViewer;
 
             int width = comp.img.Width;
             int height = comp.img.Height;
@@ -121,11 +121,11 @@ namespace Aviary.Macaw.GH
         protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
         {
             base.Render(canvas, graphics, channel);
-            MacawViewer comp = Owner as MacawViewer;
+            ImageViewer comp = Owner as ImageViewer;
 
             if (channel == GH_CanvasChannel.Objects)
             {
-                GH_Capsule capsule = GH_Capsule.CreateCapsule(ButtonBounds, GH_Palette.Normal,0, 0);
+                GH_Capsule capsule = GH_Capsule.CreateCapsule(ButtonBounds, GH_Palette.Normal, 0, 0);
                 capsule.Render(graphics, Selected, Owner.Locked, true);
                 capsule.AddOutputGrip(this.OutputGrip.Y);
                 capsule.Dispose();
@@ -136,8 +136,8 @@ namespace Aviary.Macaw.GH
                 format.LineAlignment = StringAlignment.Center;
 
                 RectangleF textRectangle = ButtonBounds;
-                
-                graphics.DrawImage(comp.img,Bounds.X+2 , m_innerBounds.Y-(ButtonBounds.Height-Bounds.Height), comp.img.Width-4, comp.img.Height-2);
+
+                graphics.DrawImage(comp.img, Bounds.X + 2, m_innerBounds.Y - (ButtonBounds.Height - Bounds.Height), comp.img.Width - 4, comp.img.Height - 2);
 
                 format.Dispose();
             }
