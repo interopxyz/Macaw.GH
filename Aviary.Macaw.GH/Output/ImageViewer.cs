@@ -50,11 +50,16 @@ namespace Aviary.Macaw.GH
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             IGH_Goo goo = null;
-
-            if (!DA.GetData(0, ref goo)) return;
-
             Bitmap bitmap = new Bitmap(100, 100);
-            goo.CastTo<Bitmap>(out bitmap);
+
+            if (DA.GetData(0, ref goo))
+            {
+                goo.CastTo<Bitmap>(out bitmap);
+            }
+            else
+            {
+                bitmap = 
+            }
 
             img = (Bitmap)bitmap.Clone();
             message = bitmap.PixelFormat.ToString();

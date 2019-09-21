@@ -9,13 +9,13 @@ using Mp = Aviary.Macaw.Procedural;
 
 namespace Aviary.Macaw.GH.Procedural
 {
-    public class CellularBase : GH_Component
+    public class Cellular2Base : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the MyComponent3 class.
+        /// Initializes a new instance of the Cellular2Base class.
         /// </summary>
-        public CellularBase()
-          : base("Cellular Base", "Cellular", "Description", "Aviary 1", "Image")
+        public Cellular2Base()
+          : base("Cellular 2 Base", "Cellular 2", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -34,23 +34,32 @@ namespace Aviary.Macaw.GH.Procedural
             pManager[3].Optional = true;
             pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
             pManager[4].Optional = true;
-            pManager.AddIntegerParameter("Output", "O", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Interpolation", "I", "---", GH_ParamAccess.item, 0);
             pManager[5].Optional = true;
-            pManager.AddNumberParameter("Jitter", "J", "---", GH_ParamAccess.item, 0.5);
+            pManager.AddIntegerParameter("Output", "O", "---", GH_ParamAccess.item, 0);
             pManager[6].Optional = true;
-            pManager.AddNumberParameter("Frequency", "F", "---", GH_ParamAccess.item, 0.25);
+            pManager.AddNumberParameter("Jitter", "J", "---", GH_ParamAccess.item, 0.5);
             pManager[7].Optional = true;
+            pManager.AddNumberParameter("Frequency", "F", "---", GH_ParamAccess.item, 0.25);
+            pManager[8].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[4];
-            paramA.AddNamedValue("Value", 0);
-            paramA.AddNamedValue("Lookup", 1);
-            paramA.AddNamedValue("Distance", 2);
-            
-            Param_Integer paramC = (Param_Integer)pManager[5];
+            paramA.AddNamedValue("Distance", 0);
+            paramA.AddNamedValue("Addition", 1);
+            paramA.AddNamedValue("Subtraction", 2);
+            paramA.AddNamedValue("Multiplication", 3);
+            paramA.AddNamedValue("Division", 4);
+
+            Param_Integer paramB = (Param_Integer)pManager[5];
+            foreach (Mp.Noise.InterpolationModes value in Enum.GetValues(typeof(Mp.Noise.InterpolationModes)))
+            {
+                paramB.AddNamedValue(value.ToString(), (int)value);
+            }
+
+            Param_Integer paramC = (Param_Integer)pManager[6];
             paramC.AddNamedValue("Euclidean", 0);
             paramC.AddNamedValue("Manhattan", 1);
             paramC.AddNamedValue("Natural", 2);
-
         }
 
         /// <summary>
@@ -79,27 +88,30 @@ namespace Aviary.Macaw.GH.Procedural
 
             int mode = 0;
             DA.GetData(4, ref mode);
-            
+
+            int interp = 0;
+            DA.GetData(5, ref interp);
+
             int output = 0;
-            DA.GetData(5, ref output);
+            DA.GetData(6, ref output);
 
             double jitter = 0.5;
-            DA.GetData(6, ref jitter);
+            DA.GetData(7, ref jitter);
 
             double frequency = 0.25;
-            DA.GetData(7, ref frequency);
+            DA.GetData(8, ref frequency);
 
 
             Mp.Noise noise = new Mp.Noise(seed, width, height, depth);
+            noise.InterpolationMode = (Mp.Noise.InterpolationModes)interp;
             noise.CellularMode = (Mp.Noise.CellularModes)mode;
-            noise.CellularOutput = (Mp.Noise.CellularOutputs)output;
+            noise.CellularOutput = (Mp.Noise.CellularOutputs)(output+3);
             noise.Jitter = jitter;
             noise.Frequency = frequency;
 
             DA.SetData(0, noise.GetCellular());
             DA.SetData(1, new Mp.Noise(noise));
         }
-
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -119,7 +131,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("0a31d869-9164-4f41-a745-94ef8a68767a"); }
+            get { return new Guid("064939a1-0b83-4b0c-b7a4-17c1e644f086"); }
         }
     }
 }

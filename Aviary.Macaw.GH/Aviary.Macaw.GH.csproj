@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Aviary.Macaw.GHInfo.cs" />
     <Compile Include="Output\ImageViewer.cs" />
+    <Compile Include="Procedural\Cellular2Base.cs" />
     <Compile Include="Procedural\CellularBase.cs" />
     <Compile Include="Procedural\NoiseBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
