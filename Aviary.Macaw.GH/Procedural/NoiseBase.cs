@@ -15,8 +15,16 @@ namespace Aviary.Macaw.GH.Procedural
         /// Initializes a new instance of the MyComponent3 class.
         /// </summary>
         public NoiseBase()
-          : base("Noise Base", "Noise", "Description", "Aviary 1", "Image")
+          : base("Noise", "Noise", "Description", "Aviary 1", "Image")
         {
+        }
+
+        /// <summary>
+        /// Set Exposure level for the component.
+        /// </summary>
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -123,7 +131,7 @@ namespace Aviary.Macaw.GH.Procedural
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Noise_Noise;
             }
         }
 

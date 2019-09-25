@@ -24,7 +24,7 @@ namespace Aviary.Macaw.GH
 
         public override void CreateAttributes()
         {
-            img = Properties.Resources.Macaw_sm;
+            img = Properties.Resources.ImageViewer_Background;
             m_attributes = new Attributes_Custom(this);
         }
 
@@ -34,6 +34,7 @@ namespace Aviary.Macaw.GH
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
+            pManager[0].Optional = true;
         }
 
         /// <summary>
@@ -54,11 +55,11 @@ namespace Aviary.Macaw.GH
 
             if (DA.GetData(0, ref goo))
             {
-                goo.CastTo<Bitmap>(out bitmap);
+                if(!goo.CastTo<Bitmap>(out bitmap)) bitmap = Properties.Resources.ImageViewer_Background;
             }
             else
             {
-                bitmap = 
+                bitmap = Properties.Resources.ImageViewer_Background;
             }
 
             img = (Bitmap)bitmap.Clone();
@@ -80,7 +81,7 @@ namespace Aviary.Macaw.GH
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.ExportBitmap24;
             }
         }
 

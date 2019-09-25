@@ -15,8 +15,16 @@ namespace Aviary.Macaw.GH.Procedural
         /// Initializes a new instance of the MyComponent3 class.
         /// </summary>
         public CellularBase()
-          : base("Cellular Base", "Cellular", "Description", "Aviary 1", "Image")
+          : base("Cellular", "Cellular", "Description", "Aviary 1", "Image")
         {
+        }
+
+        /// <summary>
+        /// Set Exposure level for the component.
+        /// </summary>
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
         }
 
         /// <summary>
@@ -40,16 +48,22 @@ namespace Aviary.Macaw.GH.Procedural
             pManager[6].Optional = true;
             pManager.AddNumberParameter("Frequency", "F", "---", GH_ParamAccess.item, 0.25);
             pManager[7].Optional = true;
+            pManager.AddIntervalParameter("Interval", "I", "---", GH_ParamAccess.item, new Interval(0,1));
+            pManager[8].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[4];
-            paramA.AddNamedValue("Value", 0);
-            paramA.AddNamedValue("Lookup", 1);
-            paramA.AddNamedValue("Distance", 2);
-            
-            Param_Integer paramC = (Param_Integer)pManager[5];
-            paramC.AddNamedValue("Euclidean", 0);
-            paramC.AddNamedValue("Manhattan", 1);
-            paramC.AddNamedValue("Natural", 2);
+            paramA.AddNamedValue("Euclidean", 0);
+            paramA.AddNamedValue("Manhattan", 1);
+            paramA.AddNamedValue("Natural", 2);
+
+            Param_Integer paramB = (Param_Integer)pManager[5];
+            paramB.AddNamedValue("Value", 0);
+            paramB.AddNamedValue("Distance", 2);
+            paramB.AddNamedValue("Distance2", 3);
+            paramB.AddNamedValue("Dist2Add", 4);
+            paramB.AddNamedValue("Dist2Sub", 5);
+            paramB.AddNamedValue("Dist2Mul", 6);
+            paramB.AddNamedValue("Dist2Div", 7);
 
         }
 
@@ -89,12 +103,16 @@ namespace Aviary.Macaw.GH.Procedural
             double frequency = 0.25;
             DA.GetData(7, ref frequency);
 
-
+            Interval interval = new Interval(0,1);
+            DA.GetData(8, ref interval);
+            
             Mp.Noise noise = new Mp.Noise(seed, width, height, depth);
             noise.CellularMode = (Mp.Noise.CellularModes)mode;
             noise.CellularOutput = (Mp.Noise.CellularOutputs)output;
             noise.Jitter = jitter;
             noise.Frequency = frequency;
+            noise.Index0 = (int)interval.T0;
+            noise.Index1 = (int)interval.T1;
 
             DA.SetData(0, noise.GetCellular());
             DA.SetData(1, new Mp.Noise(noise));
@@ -110,7 +128,7 @@ namespace Aviary.Macaw.GH.Procedural
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Noise_Cellular;
             }
         }
 
