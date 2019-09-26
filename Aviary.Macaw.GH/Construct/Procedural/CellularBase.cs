@@ -9,13 +9,13 @@ using Mp = Aviary.Macaw.Procedural;
 
 namespace Aviary.Macaw.GH.Procedural
 {
-    public class NoiseBase : GH_Component
+    public class CellularBase : GH_Component
     {
         /// <summary>
         /// Initializes a new instance of the MyComponent3 class.
         /// </summary>
-        public NoiseBase()
-          : base("Noise", "Noise", "Description", "Aviary 1", "Image")
+        public CellularBase()
+          : base("Cellular", "Cellular", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -24,7 +24,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
@@ -42,23 +42,28 @@ namespace Aviary.Macaw.GH.Procedural
             pManager[3].Optional = true;
             pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
             pManager[4].Optional = true;
-            pManager.AddIntegerParameter("Interpolation", "I", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Output", "O", "---", GH_ParamAccess.item, 0);
             pManager[5].Optional = true;
-            pManager.AddNumberParameter("Frequency", "F", "---", GH_ParamAccess.item, 0.25);
+            pManager.AddNumberParameter("Jitter", "J", "---", GH_ParamAccess.item, 0.5);
             pManager[6].Optional = true;
-            
+            pManager.AddNumberParameter("Frequency", "F", "---", GH_ParamAccess.item, 0.25);
+            pManager[7].Optional = true;
+            pManager.AddIntervalParameter("Interval", "I", "---", GH_ParamAccess.item, new Interval(0,1));
+            pManager[8].Optional = true;
+
             Param_Integer paramA = (Param_Integer)pManager[4];
-            paramA.AddNamedValue("Value", 0);
-            paramA.AddNamedValue("Perlin", 1);
-            paramA.AddNamedValue("Cubic", 2);
-            paramA.AddNamedValue("Simplex", 3);
-            paramA.AddNamedValue("WhiteNoise", 4);
+            paramA.AddNamedValue("Euclidean", 0);
+            paramA.AddNamedValue("Manhattan", 1);
+            paramA.AddNamedValue("Natural", 2);
 
             Param_Integer paramB = (Param_Integer)pManager[5];
-            foreach (Mp.Noise.InterpolationModes value in Enum.GetValues(typeof(Mp.Noise.InterpolationModes)))
-            {
-                paramB.AddNamedValue(value.ToString(), (int)value);
-            }
+            paramB.AddNamedValue("Value", 0);
+            paramB.AddNamedValue("Distance", 2);
+            paramB.AddNamedValue("Distance2", 3);
+            paramB.AddNamedValue("Dist2Add", 4);
+            paramB.AddNamedValue("Dist2Sub", 5);
+            paramB.AddNamedValue("Dist2Mul", 6);
+            paramB.AddNamedValue("Dist2Div", 7);
 
         }
 
@@ -88,39 +93,31 @@ namespace Aviary.Macaw.GH.Procedural
 
             int mode = 0;
             DA.GetData(4, ref mode);
+            
+            int output = 0;
+            DA.GetData(5, ref output);
 
-            int interp = 0;
-            DA.GetData(5, ref interp);
+            double jitter = 0.5;
+            DA.GetData(6, ref jitter);
 
             double frequency = 0.25;
-            DA.GetData(6, ref frequency);
+            DA.GetData(7, ref frequency);
+
+            Interval interval = new Interval(0,1);
+            DA.GetData(8, ref interval);
             
-
             Mp.Noise noise = new Mp.Noise(seed, width, height, depth);
-            noise.InterpolationMode = (Mp.Noise.InterpolationModes)interp;
+            noise.CellularMode = (Mp.Noise.CellularModes)mode;
+            noise.CellularOutput = (Mp.Noise.CellularOutputs)output;
+            noise.Jitter = jitter;
             noise.Frequency = frequency;
+            noise.Index0 = (int)interval.T0;
+            noise.Index1 = (int)interval.T1;
 
-            switch(mode)
-            {
-                case 1:
-                    DA.SetData(0, noise.GetPerlin());
-                    break;
-                case 2:
-                    DA.SetData(0, noise.GetCubic());
-                    break;
-                case 3:
-                    DA.SetData(0, noise.GetSimplex());
-                    break;
-                case 4:
-                    DA.SetData(0, noise.GetWhiteNoise());
-                    break;
-                default:
-                    DA.SetData(0, noise.GetValue());
-                    break;
-            }
-
-            DA.SetData(1,new Mp.Noise(noise));
+            DA.SetData(0, noise.GetCellular());
+            DA.SetData(1, new Mp.Noise(noise));
         }
+
 
         /// <summary>
         /// Provides an Icon for the component.
@@ -131,7 +128,7 @@ namespace Aviary.Macaw.GH.Procedural
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.Noise_Noise;
+                return Properties.Resources.Noise_Cellular;
             }
         }
 
@@ -140,7 +137,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("cf9568a2-61ae-4765-b6e2-d244805a5e99"); }
+            get { return new Guid("0a31d869-9164-4f41-a745-94ef8a68767a"); }
         }
     }
 }

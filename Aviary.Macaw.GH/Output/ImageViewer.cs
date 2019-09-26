@@ -22,6 +22,14 @@ namespace Aviary.Macaw.GH
         {
         }
 
+        /// <summary>
+        /// Set Exposure level for the component.
+        /// </summary>
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.secondary; }
+        }
+
         public override void CreateAttributes()
         {
             img = Properties.Resources.ImageViewer_Background;

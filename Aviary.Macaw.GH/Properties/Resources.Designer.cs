@@ -63,9 +63,29 @@ namespace Aviary.Macaw.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Aviary_Logo_sm {
+            get {
+                object obj = ResourceManager.GetObject("Aviary_Logo_sm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Bitmap_Background {
             get {
                 object obj = ResourceManager.GetObject("Bitmap_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BuildBitmap_A {
+            get {
+                object obj = ResourceManager.GetObject("BuildBitmap_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

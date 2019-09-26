@@ -54,10 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aviary.Macaw.GHInfo.cs" />
+    <Compile Include="Construct\BuildBitmap.cs" />
+    <Compile Include="Construct\CompositeImages.cs" />
     <Compile Include="Output\ImageViewer.cs" />
-    <Compile Include="Procedural\CellularBase.cs" />
-    <Compile Include="Procedural\Fractal.cs" />
-    <Compile Include="Procedural\NoiseBase.cs" />
+    <Compile Include="Construct\Procedural\CellularBase.cs" />
+    <Compile Include="Construct\Procedural\Fractal.cs" />
+    <Compile Include="Construct\Procedural\NoiseBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -110,6 +112,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Noise_Fractal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BuildBitmap-A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Aviary-Logo-sm.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
