@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 namespace Aviary.Macaw.GH.Output
@@ -58,10 +59,10 @@ namespace Aviary.Macaw.GH.Output
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Image image = new Image();
+            IGH_Goo goo = null;
             Bitmap bitmap = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref bitmap)) if (DA.GetData(0, ref image)) { bitmap = image.Bitmap; } else { return; }
-            Bitmap bmp = (Bitmap)bitmap.Clone();
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.TryGetBitmap(ref bitmap)) return;
 
             int mode = 0;
             DA.GetData(1, ref mode);
@@ -69,28 +70,28 @@ namespace Aviary.Macaw.GH.Output
             switch((ValueModes)mode)
             {
                 default:
-                    DA.SetDataList(0, bmp.GetColorValues());
+                    DA.SetDataList(0, bitmap.GetColorValues());
                     break;
                 case ValueModes.Alpha:
-                    DA.SetDataList(0, bmp.GetAValues());
+                    DA.SetDataList(0, bitmap.GetAValues());
                     break;
                 case ValueModes.Red:
-                    DA.SetDataList(0, bmp.GetRValues());
+                    DA.SetDataList(0, bitmap.GetRValues());
                     break;
                 case ValueModes.Green:
-                    DA.SetDataList(0, bmp.GetGValues());
+                    DA.SetDataList(0, bitmap.GetGValues());
                     break;
                 case ValueModes.Blue:
-                    DA.SetDataList(0, bmp.GetBValues());
+                    DA.SetDataList(0, bitmap.GetBValues());
                     break;
                 case ValueModes.Hue:
-                    DA.SetDataList(0, bmp.GetHueValues());
+                    DA.SetDataList(0, bitmap.GetHueValues());
                     break;
                 case ValueModes.Saturation:
-                    DA.SetDataList(0, bmp.GetSaturationValues());
+                    DA.SetDataList(0, bitmap.GetSaturationValues());
                     break;
                 case ValueModes.Brightness:
-                    DA.SetDataList(0, bmp.GetBrightnessValues());
+                    DA.SetDataList(0, bitmap.GetBrightnessValues());
                     break;
             }
 

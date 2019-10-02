@@ -65,22 +65,15 @@ namespace Aviary.Macaw.GH.Layering
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             IGH_Goo goo = null;
-            Image image = new Image();
             Bitmap bitmap = new Bitmap(100, 100);
             if (!DA.GetData(0, ref goo)) return;
-            if (!goo.CastTo<Bitmap>(out bitmap)) { if (goo.CastTo<Image>(out image)) { bitmap = image.Bitmap; } else { return; } }
+            if (!goo.TryGetBitmap(ref bitmap)) return;
 
             Ml.Layer layer = new Ml.Layer(bitmap);
-
-
-            IGH_Goo goo = null;
-            Image image = new Image();
-            Bitmap bitmap = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref goo)) return;
-            if (!goo.CastTo<Bitmap>(out bitmap)) { if (goo.CastTo<Image>(out image)) { bitmap = image.Bitmap; } else { return; } }
-            //Image maskImage = new Image();
-            //Bitmap mask = new Bitmap(100, 100);
-            //if (DA.GetData<Bitmap>(1, ref mask)) { layer.Mask = mask; } else { if (DA.GetData<Image>(1, ref maskImage)) layer.Mask = maskImage.Bitmap; }
+            
+            IGH_Goo gooM = null;
+            Bitmap bitmapM = new Bitmap(100, 100);
+            if (DA.GetData(0, ref gooM)) if (goo.TryGetBitmap(ref bitmapM)) layer.Mask = bitmapM;
 
             int blendMode = 0;
             DA.GetData(2, ref blendMode);

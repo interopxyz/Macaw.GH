@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 using Mp = Aviary.Macaw.Layering;
@@ -64,21 +65,23 @@ namespace Aviary.Macaw.GH.Construct
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Image topImage = new Image();
+            IGH_Goo goo = null;
             Bitmap top = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref top)) if (DA.GetData(0, ref topImage)) { top = topImage.Bitmap; } else { return; };
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.TryGetBitmap(ref top)) return;
 
             Mp.Layer topLayer = new Mp.Layer(top);
 
-            Image bottomImage = new Image();
+            IGH_Goo gooT = null;
             Bitmap bottom = new Bitmap(100, 100);
-            if (!DA.GetData(1, ref bottom)) if (DA.GetData(1, ref bottomImage)) { bottom = bottomImage.Bitmap; } else {return; }
+            if (!DA.GetData(1, ref goo)) return;
+            if (!goo.TryGetBitmap(ref bottom)) return;
 
             Mp.Layer bottomLayer = new Mp.Layer(bottom);
 
-            Image maskImage = new Image();
+            IGH_Goo gooM = null;
             Bitmap mask = new Bitmap(100, 100);
-            if (DA.GetData(2, ref mask)) { topLayer.Mask = mask; } else { if (DA.GetData(2, ref maskImage)) topLayer.Mask = maskImage.Bitmap; }
+            if (DA.GetData(2, ref gooM)) if (goo.TryGetBitmap(ref mask)) topLayer.Mask = mask;
 
             int blendMode = 0;
             DA.GetData(3, ref blendMode);

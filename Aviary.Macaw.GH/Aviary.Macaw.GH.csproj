@@ -60,6 +60,7 @@
     <Compile Include="Layering\MergeLayers.cs" />
     <Compile Include="Layering\ModifyLayer.cs" />
     <Compile Include="Layering\AddLayer.cs" />
+    <Compile Include="Output\ExportBitmap.cs" />
     <Compile Include="Output\ImageProperties.cs" />
     <Compile Include="Output\ImageToBitmap.cs" />
     <Compile Include="Output\ImageValueAt.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Tracing\GetCorners.cs" />
     <Compile Include="Tracing\GetShapes.cs" />
     <Compile Include="Tracing\TraceImage.cs" />
+    <Compile Include="Types\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -179,7 +181,10 @@
     <None Include="Resources\GetPixel.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Types\" />
+    <None Include="Resources\SaveBitmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

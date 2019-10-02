@@ -66,10 +66,10 @@ namespace Aviary.Macaw.GH
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Image image = new Image();
+            IGH_Goo goo = null;
             Bitmap bitmap = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref bitmap)) if (DA.GetData(0, ref image)) { bitmap = image.Bitmap; } else { return; }
-            Bitmap img = (Bitmap)bitmap.Clone();
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.TryGetBitmap(ref bitmap)) return;
 
             int mode = 0;
             DA.GetData(1, ref mode);
@@ -89,7 +89,7 @@ namespace Aviary.Macaw.GH
             bool optimize = true;
             DA.GetData(6, ref optimize);
 
-            List<Polyline> polylines = img.TraceToRhino(optimize, (TraceBitmap.TurnModes)mode, size, tolerance, threshold, alpha);
+            List<Polyline> polylines = bitmap.TraceToRhino(optimize, (TraceBitmap.TurnModes)mode, size, tolerance, threshold, alpha);
 
             DA.SetDataList(0, polylines);
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 namespace Aviary.Macaw.GH.Output
@@ -61,10 +62,10 @@ namespace Aviary.Macaw.GH.Output
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Image image = new Image();
+            IGH_Goo goo = null;
             Bitmap bitmap = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref bitmap)) if (DA.GetData(0, ref image)) { bitmap = image.Bitmap; } else { return; }
-            Bitmap bmp = (Bitmap)bitmap.Clone();
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.TryGetBitmap(ref bitmap)) return;
 
             int mode = 0;
             DA.GetData(1, ref mode);
@@ -80,65 +81,65 @@ namespace Aviary.Macaw.GH.Output
             List<double> numbers = new List<double>();
 
             double w = 1;
-            if (unitize) w = bmp.Width-1;
+            if (unitize) w = bitmap.Width-1;
             double h = 1;
-            if (unitize) h = bmp.Height - 1;
+            if (unitize) h = bitmap.Height - 1;
 
             switch ((ValueModes)mode)
             {
                 default:
                     foreach(Point3d point in points)
                     {
-                        colors.Add(bmp.GetPixel((int)(point.X*w), (int)(point.Y*h)));
+                        colors.Add(bitmap.GetPixel((int)(point.X*w), (int)(point.Y*h)));
                     }
                     DA.SetDataList(0, colors);
                     break;
                 case ValueModes.Alpha:
                     foreach (Point3d point in points)
                     {
-                        ints.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).A);
+                        ints.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).A);
                     }
                     DA.SetDataList(0, ints);
                     break;
                 case ValueModes.Red:
                     foreach (Point3d point in points)
                     {
-                        ints.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).R);
+                        ints.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).R);
                     }
                     DA.SetDataList(0, ints);
                     break;
                 case ValueModes.Green:
                     foreach (Point3d point in points)
                     {
-                        ints.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).G);
+                        ints.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).G);
                     }
                     DA.SetDataList(0, ints);
                     break;
                 case ValueModes.Blue:
                     foreach (Point3d point in points)
                     {
-                        ints.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).B);
+                        ints.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).B);
                     }
                     DA.SetDataList(0, ints);
                     break;
                 case ValueModes.Hue:
                     foreach (Point3d point in points)
                     {
-                        numbers.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).GetHue());
+                        numbers.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).GetHue());
                     }
                     DA.SetDataList(0, numbers);
                     break;
                 case ValueModes.Saturation:
                     foreach (Point3d point in points)
                     {
-                        numbers.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).GetSaturation());
+                        numbers.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).GetSaturation());
                     }
                     DA.SetDataList(0, numbers);
                     break;
                 case ValueModes.Brightness:
                     foreach (Point3d point in points)
                     {
-                        numbers.Add(bmp.GetPixel((int)(point.X * w), (int)(point.Y * h)).GetBrightness());
+                        numbers.Add(bitmap.GetPixel((int)(point.X * w), (int)(point.Y * h)).GetBrightness());
                     }
                     DA.SetDataList(0, numbers);
                     break;
