@@ -5,17 +5,17 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
 
-using Mp = Aviary.Macaw.Layering;
+using Ml = Aviary.Macaw.Layering;
 
-namespace Aviary.Macaw.GH.Construct
+namespace Aviary.Macaw.GH.Layering
 {
-    public class CompositeImages : GH_Component
+    public class AddLayer : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the CompositeImages class.
+        /// Initializes a new instance of the SetLayer class.
         /// </summary>
-        public CompositeImages()
-          : base("Composite Images", "Composite", "Description", "Aviary 1", "Image")
+        public AddLayer()
+          : base("Add Layer", "Layer", "Set layer image and properties ", "Aviary 1", "Image")
         {
         }
 
@@ -24,7 +24,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.tertiary; }
         }
 
         /// <summary>
@@ -32,19 +32,18 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Top Image", "T", "The bottom Bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bottom Image", "B", "The bottom Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bitmap", "B", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddGenericParameter("Mask Image", "X", "The Layer mask", GH_ParamAccess.item);
-            pManager[2].Optional = true;
+            pManager[1].Optional = true;
 
             pManager.AddIntegerParameter("Blend Mode", "M", "", GH_ParamAccess.item, 0);
-            pManager[3].Optional = true;
+            pManager[2].Optional = true;
 
             pManager.AddNumberParameter("Opacity", "O", "An opacity value from 0-1", GH_ParamAccess.item, 1.0);
-            pManager[4].Optional = true;
-            
-            Param_Integer paramA = (Param_Integer)pManager[3];
-            foreach (Mp.Layer.BlendModes value in Enum.GetValues(typeof(Mp.Layer.BlendModes)))
+            pManager[3].Optional = true;
+
+            Param_Integer paramA = (Param_Integer)pManager[2];
+            foreach (Ml.Layer.BlendModes value in Enum.GetValues(typeof(Ml.Layer.BlendModes)))
             {
                 paramA.AddNamedValue(value.ToString(), (int)value);
             }
@@ -55,7 +54,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "The resultant bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Layer", "L", "The resulting layer", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -64,33 +63,24 @@ namespace Aviary.Macaw.GH.Construct
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            Bitmap top = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref top)) return;
+            Bitmap bitmap = new Bitmap(100, 100);
+            if (!DA.GetData(0, ref bitmap)) return;
 
-            Mp.Layer topLayer = new Mp.Layer(top);
-
-            Bitmap bottom = new Bitmap(100, 100);
-            if (!DA.GetData(1, ref bottom)) return;
-
-            Mp.Layer bottomLayer = new Mp.Layer(bottom);
+            Ml.Layer layer = new Ml.Layer(bitmap);
 
             Bitmap mask = new Bitmap(100, 100);
-            if (DA.GetData(2, ref mask)) topLayer.Mask = mask;
+            if (DA.GetData(1, ref mask)) layer.Mask = mask;
 
             int blendMode = 0;
-            DA.GetData(3, ref blendMode);
+            DA.GetData(2, ref blendMode);
 
             double opacity = 1.0;
-            DA.GetData(4, ref opacity);
+            DA.GetData(3, ref opacity);
 
-            topLayer.BlendMode = (Mp.Layer.BlendModes)blendMode;
-            topLayer.Opacity = 100 * opacity;
+            layer.BlendMode = (Ml.Layer.BlendModes)blendMode;
+            layer.Opacity = 100 * opacity;
 
-            Mp.Composition composition = new Mp.Composition();
-            composition.Layers.Add(bottomLayer);
-            composition.Layers.Add(topLayer);
-
-            DA.SetData(0, composition.GetBitmap());
+            DA.SetData(0, layer);
         }
 
         /// <summary>
@@ -102,7 +92,7 @@ namespace Aviary.Macaw.GH.Construct
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.Composite2Images;
+                return Properties.Resources.AddLayer;
             }
         }
 
@@ -111,7 +101,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("72d23fdd-3890-47b7-bf2f-bf336dd8a3a8"); }
+            get { return new Guid("7b845d98-dd80-42a7-bae5-6b792f3e4ece"); }
         }
     }
 }

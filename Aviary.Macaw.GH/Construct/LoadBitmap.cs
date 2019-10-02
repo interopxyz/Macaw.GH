@@ -6,28 +6,30 @@ using Rhino.Geometry;
 
 namespace Aviary.Macaw.GH.Construct
 {
-    public class BuildBitmap : GH_Component
+    public class LoadBitmap : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the BuildBitmap class.
+        /// Initializes a new instance of the LoadBitmap class.
         /// </summary>
-        public BuildBitmap()
-          : base("Build Bitmap", "Build", "Description", "Aviary 1", "Image")
+        public LoadBitmap()
+          : base("Load Bitmap", "Bmp", "Open a bitmap object from a filepath", "Aviary 1", "Image")
         {
         }
-        
+
+        /// <summary>
+        /// Set Exposure level for the component.
+        /// </summary>
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.primary; }
+        }
 
         /// <summary>
         /// Registers all the input parameters for this component.
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Width", "W", "The horizontal pixel resolution", GH_ParamAccess.item, 100);
-            pManager[0].Optional = true;
-            pManager.AddIntegerParameter("Height", "H", "The vertical pixel resolution", GH_ParamAccess.item, 100);
-            pManager[1].Optional = true;
-            pManager.AddColourParameter("Colors", "C", "The pixels raster colors", GH_ParamAccess.list);
-
+            pManager.AddTextParameter("FilePath", "F", "", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "The resulting Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bitmap", "B", "---", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -44,28 +46,11 @@ namespace Aviary.Macaw.GH.Construct
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            int width = 100;
-            DA.GetData(0, ref width);
+            string P = null;
+            if (!DA.GetData(0, ref P)) return;
 
-            int height = 100;
-            DA.GetData(1, ref height);
-
-            List<Color> colors = new List<Color>();
-            if (!DA.GetDataList(2, colors)) return;
-
-            Bitmap bitmap = new Bitmap(width, height);
+            Bitmap bitmap = GetBitmap.GetBitmapFromFile(P);
             
-            int k = 0;
-            int c = colors.Count;
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < width; j++)
-                {
-                    k = (i * width + j) % c;
-                    bitmap.SetPixel(j, i, colors[k]);
-                }
-            }
-
             DA.SetData(0, bitmap);
         }
 
@@ -78,7 +63,7 @@ namespace Aviary.Macaw.GH.Construct
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.SetPixels;
+                return Properties.Resources.OpenBitmapFile;
             }
         }
 
@@ -87,7 +72,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("dd47564d-3433-4595-b878-76e0218c74d1"); }
+            get { return new Guid("ee7a5f57-cef2-4d7a-ac21-22950b50bfdc"); }
         }
     }
 }

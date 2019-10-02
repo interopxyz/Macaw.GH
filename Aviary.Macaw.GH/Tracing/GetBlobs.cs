@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using Aviary.Macaw.Tracing;
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-namespace Aviary.Macaw.GH
+using Aviary.Wind;
+
+namespace Aviary.Macaw.GH.Tracing
 {
-    public class TraceImage : GH_Component
+    public class GetBlobs : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the TraceImage class.
+        /// Initializes a new instance of the GetBlobs class.
         /// </summary>
-        public TraceImage()
-          : base("Trace Image", "Trace", "---", "Aviary 1", "Image")
+        public GetBlobs()
+          : base("Blob Boundaries", "Boundaries", "Get blob boundaries from a bitmap", "Aviary 1", "Image")
         {
         }
 
@@ -32,24 +34,14 @@ namespace Aviary.Macaw.GH
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntervalParameter("Width Domain", "W", "---", GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Size", "S", "---", GH_ParamAccess.item, 10);
+            pManager.AddIntervalParameter("Height Domain", "H", "---", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Tolerance", "T", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddColourParameter("Background Color", "C", "---", GH_ParamAccess.item);
             pManager[3].Optional = true;
-            pManager.AddNumberParameter("Threshold", "C", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddBooleanParameter("Limit", "L", "---", GH_ParamAccess.item);
             pManager[4].Optional = true;
-            pManager.AddNumberParameter("Alpha", "A", "---", GH_ParamAccess.item, 1.0);
-            pManager[5].Optional = true;
-            pManager.AddBooleanParameter("Optimize", "O", "---", GH_ParamAccess.item, true);
-            pManager[6].Optional = true;
-
-            Param_Integer param = (Param_Integer)pManager[1];
-            foreach (TraceBitmap.TurnModes value in Enum.GetValues(typeof(TraceBitmap.TurnModes)))
-            {
-                param.AddNamedValue(value.ToString(), (int)value);
-            }
         }
 
         /// <summary>
@@ -57,7 +49,10 @@ namespace Aviary.Macaw.GH
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Curves", "C", "---", GH_ParamAccess.list);
+            pManager.AddRectangleParameter("Boundaries", "R", "---", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Bitmap", "B", "---", GH_ParamAccess.list);
+            pManager.AddColourParameter("Colors", "C", "---", GH_ParamAccess.list);
+            pManager.AddPointParameter("Points", "P", "---", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -67,35 +62,38 @@ namespace Aviary.Macaw.GH
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             IGH_Goo goo = null;
-
             if (!DA.GetData(0, ref goo)) return;
-
             Bitmap bitmap = new Bitmap(100, 100);
             goo.CastTo<Bitmap>(out bitmap);
 
-            Bitmap img = (Bitmap)bitmap.Clone();
+            Blobs blobs = new Blobs();
 
-            int mode = 0;
-            DA.GetData(1, ref mode);
+            Interval width = new Interval();
+            if(DA.GetData(1,ref width))
+            {
+                blobs.MinWidth = (int)width.T0;
+                blobs.MaxWidth = (int)width.T1;
+            }
 
-            int size = 10;
-            DA.GetData(2, ref size);
+            Interval height = new Interval();
+            if (DA.GetData(2, ref height))
+            {
+                blobs.MinHeight = (int)height.T0;
+                blobs.MaxHeight = (int)height.T1;
+            }
 
-            double tolerance = 1.0;
-            DA.GetData(3, ref tolerance);
+            Color color = new Color();
+            if (DA.GetData(3, ref color)) blobs.BackgroundColor = color;
 
-            double threshold = 1.0;
-            DA.GetData(4, ref threshold);
+            bool limit = false;
+            if (DA.GetData(4, ref limit)) blobs.Coupled = limit;
 
-            double alpha = 1.0;
-            DA.GetData(5, ref alpha);
-
-            bool optimize = true;
-            DA.GetData(6, ref optimize);
-
-            List<Polyline> polylines = img.TraceToRhino(optimize, (TraceBitmap.TurnModes)mode, size, tolerance, threshold, alpha);
-
-            DA.SetDataList(0, polylines);
+            blobs.CalculateBlobs(bitmap);
+            
+            DA.SetDataList(0, blobs.GetBoundaries());
+            DA.SetDataList(1, blobs.GetImages());
+            DA.SetDataList(2, blobs.GetColors());
+            DA.SetDataList(3, blobs.GetPoints());
         }
 
         /// <summary>
@@ -107,7 +105,7 @@ namespace Aviary.Macaw.GH
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.TraceBitmap;
+                return Properties.Resources.TraceBlobsA;
             }
         }
 
@@ -116,7 +114,7 @@ namespace Aviary.Macaw.GH
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("6be19558-404e-451b-8674-5e826a723815"); }
+            get { return new Guid("f1ee54fe-85b0-46bf-ae35-98244258e085"); }
         }
     }
 }

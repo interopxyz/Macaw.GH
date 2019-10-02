@@ -56,6 +56,13 @@
     <Compile Include="Aviary.Macaw.GHInfo.cs" />
     <Compile Include="Construct\BuildBitmap.cs" />
     <Compile Include="Construct\CompositeImages.cs" />
+    <Compile Include="Construct\LoadBitmap.cs" />
+    <Compile Include="Layering\MergeLayers.cs" />
+    <Compile Include="Layering\ModifyLayer.cs" />
+    <Compile Include="Layering\AddLayer.cs" />
+    <Compile Include="Output\ImageProperties.cs" />
+    <Compile Include="Output\ImageValueAt.cs" />
+    <Compile Include="Output\ImageValues.cs" />
     <Compile Include="Output\ImageViewer.cs" />
     <Compile Include="Construct\Procedural\CellularBase.cs" />
     <Compile Include="Construct\Procedural\Fractal.cs" />
@@ -66,6 +73,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tracing\GetBlobs.cs" />
+    <Compile Include="Tracing\GetCorners.cs" />
+    <Compile Include="Tracing\GetShapes.cs" />
     <Compile Include="Tracing\TraceImage.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,6 +128,54 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Aviary-Logo-sm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenBitmapFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ModifyLayerProperties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Composite2Images.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MergeLayers-01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MergeLayers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SamplePixels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BitmapProperties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SamplePixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceShapesA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceBlobsA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceCornersA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceBitmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GetPixels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SetPixels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GetPixel.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,7 +27,7 @@ namespace Aviary.Macaw.GH
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.secondary; }
+            get { return GH_Exposure.septenary; }
         }
 
         public override void CreateAttributes()
