@@ -55,7 +55,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "---", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
             pManager.AddGenericParameter("Noise", "N", "---", GH_ParamAccess.item);
         }
 
@@ -87,7 +87,7 @@ namespace Aviary.Macaw.GH.Procedural
             noise.Lacunarity = lacunity;
             noise.Gain = gain;
 
-            DA.SetData(0, noise.GetCurrent());
+            DA.SetData(0, new Image(noise.GetCurrent()));
 
             DA.SetData(1, new Mp.Noise(noise));
         }

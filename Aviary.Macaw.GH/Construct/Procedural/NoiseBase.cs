@@ -67,7 +67,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "---", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
             pManager.AddGenericParameter("Noise", "N", "---", GH_ParamAccess.item);
         }
 
@@ -103,19 +103,19 @@ namespace Aviary.Macaw.GH.Procedural
             switch(mode)
             {
                 case 1:
-                    DA.SetData(0, noise.GetPerlin());
+                    DA.SetData(0, new Image(noise.GetPerlin()));
                     break;
                 case 2:
-                    DA.SetData(0, noise.GetCubic());
+                    DA.SetData(0, new Image(noise.GetCubic()));
                     break;
                 case 3:
-                    DA.SetData(0, noise.GetSimplex());
+                    DA.SetData(0, new Image(noise.GetSimplex()));
                     break;
                 case 4:
-                    DA.SetData(0, noise.GetWhiteNoise());
+                    DA.SetData(0, new Image(noise.GetWhiteNoise()));
                     break;
                 default:
-                    DA.SetData(0, noise.GetValue());
+                    DA.SetData(0, new Image(noise.GetValue()));
                     break;
             }
 

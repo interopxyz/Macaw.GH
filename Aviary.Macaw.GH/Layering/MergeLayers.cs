@@ -62,7 +62,7 @@ namespace Aviary.Macaw.GH.Layering
 
             Bitmap bitmap = composition.GetBitmap();
 
-            DA.SetData(0, bitmap);
+            DA.SetData(0, new Image(bitmap));
         }
 
         /// <summary>

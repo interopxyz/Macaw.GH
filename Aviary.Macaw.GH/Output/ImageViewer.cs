@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using Sd = System.Drawing;
 using Grasshopper.GUI.Canvas;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Attributes;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
+
 namespace Aviary.Macaw.GH
 {
     public class ImageViewer : GH_Component
     {
-        public Image img = null;
+        public Sd.Image img = null;
         string message = "Nothing here";
 
         /// <summary>
@@ -59,18 +60,30 @@ namespace Aviary.Macaw.GH
         protected override void SolveInstance(IGH_DataAccess DA)
         {
             IGH_Goo goo = null;
-            Bitmap bitmap = new Bitmap(100, 100);
+            Sd.Bitmap bitmap = new Sd.Bitmap(100, 100);
 
             if (DA.GetData(0, ref goo))
             {
-                if(!goo.CastTo<Bitmap>(out bitmap)) bitmap = Properties.Resources.ImageViewer_Background;
+                if (!goo.CastTo<Sd.Bitmap>(out bitmap))
+                {
+                    Image image = new Image();
+                    if (goo.CastTo<Image>(out image))
+                    {
+                        bitmap = image.Bitmap;
+                    }
+
+                    else
+                    {
+                        bitmap = Properties.Resources.ImageViewer_Background;
+                    }
+                }
             }
             else
             {
                 bitmap = Properties.Resources.ImageViewer_Background;
             }
 
-            img = (Bitmap)bitmap.Clone();
+            img = (Sd.Bitmap)bitmap.Clone();
             message = bitmap.PixelFormat.ToString();
             UpdateMessage();
         }
@@ -106,7 +119,7 @@ namespace Aviary.Macaw.GH
     {
         public Attributes_Custom(GH_Component owner) : base(owner) { }
 
-        private Rectangle ButtonBounds { get; set; }
+        private Sd.Rectangle ButtonBounds { get; set; }
         protected override void Layout()
         {
             base.Layout();
@@ -114,7 +127,7 @@ namespace Aviary.Macaw.GH
 
             int width = comp.img.Width;
             int height = comp.img.Height;
-            Rectangle rec0 = GH_Convert.ToRectangle(Bounds);
+            Sd.Rectangle rec0 = GH_Convert.ToRectangle(Bounds);
 
             int cWidth = rec0.Width;
             int cHeight = rec0.Height;
@@ -122,7 +135,7 @@ namespace Aviary.Macaw.GH
             rec0.Width = width;
             rec0.Height += height;
 
-            Rectangle rec1 = rec0;
+            Sd.Rectangle rec1 = rec0;
             rec1.Y = rec1.Bottom - height;
             rec1.Height = height;
             rec1.Width = width;
@@ -132,7 +145,7 @@ namespace Aviary.Macaw.GH
 
         }
 
-        protected override void Render(GH_Canvas canvas, Graphics graphics, GH_CanvasChannel channel)
+        protected override void Render(GH_Canvas canvas, Sd.Graphics graphics, GH_CanvasChannel channel)
         {
             base.Render(canvas, graphics, channel);
             ImageViewer comp = Owner as ImageViewer;
@@ -145,11 +158,11 @@ namespace Aviary.Macaw.GH
                 capsule.Dispose();
                 capsule = null;
 
-                StringFormat format = new StringFormat();
-                format.Alignment = StringAlignment.Center;
-                format.LineAlignment = StringAlignment.Center;
+                Sd.StringFormat format = new Sd.StringFormat();
+                format.Alignment = Sd.StringAlignment.Center;
+                format.LineAlignment = Sd.StringAlignment.Center;
 
-                RectangleF textRectangle = ButtonBounds;
+                Sd.RectangleF textRectangle = ButtonBounds;
 
                 graphics.DrawImage(comp.img, Bounds.X + 2, m_innerBounds.Y - (ButtonBounds.Height - Bounds.Height), comp.img.Width - 4, comp.img.Height - 2);
 

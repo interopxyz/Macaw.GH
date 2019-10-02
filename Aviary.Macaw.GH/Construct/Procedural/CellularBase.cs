@@ -72,7 +72,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "---", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
             pManager.AddGenericParameter("Noise", "N", "---", GH_ParamAccess.item);
         }
 
@@ -114,7 +114,7 @@ namespace Aviary.Macaw.GH.Procedural
             noise.Index0 = (int)interval.T0;
             noise.Index1 = (int)interval.T1;
 
-            DA.SetData(0, noise.GetCellular());
+            DA.SetData(0, new Image(noise.GetCellular()));
             DA.SetData(1, new Mp.Noise(noise));
         }
 

@@ -61,6 +61,7 @@
     <Compile Include="Layering\ModifyLayer.cs" />
     <Compile Include="Layering\AddLayer.cs" />
     <Compile Include="Output\ImageProperties.cs" />
+    <Compile Include="Output\ImageToBitmap.cs" />
     <Compile Include="Output\ImageValueAt.cs" />
     <Compile Include="Output\ImageValues.cs" />
     <Compile Include="Output\ImageViewer.cs" />
@@ -176,6 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GetPixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Types\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

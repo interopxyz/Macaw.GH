@@ -61,10 +61,10 @@ namespace Aviary.Macaw.GH.Tracing
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
-            IGH_Goo goo = null;
-            if (!DA.GetData(0, ref goo)) return;
+            Image image = new Image();
             Bitmap bitmap = new Bitmap(100, 100);
-            goo.CastTo<Bitmap>(out bitmap);
+            if (!DA.GetData(0, ref bitmap)) if (DA.GetData(0, ref image)) { bitmap = image.Bitmap; } else { return; }
+            Bitmap bmp = (Bitmap)bitmap.Clone();
 
             Blobs blobs = new Blobs();
 
@@ -88,7 +88,7 @@ namespace Aviary.Macaw.GH.Tracing
             bool limit = false;
             if (DA.GetData(4, ref limit)) blobs.Coupled = limit;
 
-            blobs.CalculateBlobs(bitmap);
+            blobs.CalculateBlobs(bmp);
             
             DA.SetDataList(0, blobs.GetBoundaries());
             DA.SetDataList(1, blobs.GetImages());

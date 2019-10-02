@@ -55,7 +55,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "The resultant bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The resultant image", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -64,18 +64,21 @@ namespace Aviary.Macaw.GH.Construct
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            Image topImage = new Image();
             Bitmap top = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref top)) return;
+            if (!DA.GetData(0, ref top)) if (DA.GetData(0, ref topImage)) { top = topImage.Bitmap; } else { return; };
 
             Mp.Layer topLayer = new Mp.Layer(top);
 
+            Image bottomImage = new Image();
             Bitmap bottom = new Bitmap(100, 100);
-            if (!DA.GetData(1, ref bottom)) return;
+            if (!DA.GetData(1, ref bottom)) if (DA.GetData(1, ref bottomImage)) { bottom = bottomImage.Bitmap; } else {return; }
 
             Mp.Layer bottomLayer = new Mp.Layer(bottom);
 
+            Image maskImage = new Image();
             Bitmap mask = new Bitmap(100, 100);
-            if (DA.GetData(2, ref mask)) topLayer.Mask = mask;
+            if (DA.GetData(2, ref mask)) { topLayer.Mask = mask; } else { if (DA.GetData(2, ref maskImage)) topLayer.Mask = maskImage.Bitmap; }
 
             int blendMode = 0;
             DA.GetData(3, ref blendMode);
@@ -90,7 +93,7 @@ namespace Aviary.Macaw.GH.Construct
             composition.Layers.Add(bottomLayer);
             composition.Layers.Add(topLayer);
 
-            DA.SetData(0, composition.GetBitmap());
+            DA.SetData(0, new Image(composition.GetBitmap()));
         }
 
         /// <summary>

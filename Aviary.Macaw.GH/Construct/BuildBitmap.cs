@@ -12,7 +12,7 @@ namespace Aviary.Macaw.GH.Construct
         /// Initializes a new instance of the BuildBitmap class.
         /// </summary>
         public BuildBitmap()
-          : base("Build Bitmap", "Build", "Description", "Aviary 1", "Image")
+          : base("Build Image", "Build", "Description", "Aviary 1", "Image")
         {
         }
         
@@ -35,7 +35,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "The resulting Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The resulting Bitmap", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Aviary.Macaw.GH.Construct
                 }
             }
 
-            DA.SetData(0, bitmap);
+            DA.SetData(0, new Image(bitmap));
         }
 
         /// <summary>

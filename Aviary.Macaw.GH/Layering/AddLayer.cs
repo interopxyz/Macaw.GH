@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 using Ml = Aviary.Macaw.Layering;
@@ -32,7 +33,7 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "The Layer Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddGenericParameter("Mask Image", "X", "The Layer mask", GH_ParamAccess.item);
             pManager[1].Optional = true;
 
@@ -63,13 +64,23 @@ namespace Aviary.Macaw.GH.Layering
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo goo = null;
+            Image image = new Image();
             Bitmap bitmap = new Bitmap(100, 100);
-            if (!DA.GetData(0, ref bitmap)) return;
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.CastTo<Bitmap>(out bitmap)) { if (goo.CastTo<Image>(out image)) { bitmap = image.Bitmap; } else { return; } }
 
             Ml.Layer layer = new Ml.Layer(bitmap);
 
-            Bitmap mask = new Bitmap(100, 100);
-            if (DA.GetData(1, ref mask)) layer.Mask = mask;
+
+            IGH_Goo goo = null;
+            Image image = new Image();
+            Bitmap bitmap = new Bitmap(100, 100);
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.CastTo<Bitmap>(out bitmap)) { if (goo.CastTo<Image>(out image)) { bitmap = image.Bitmap; } else { return; } }
+            //Image maskImage = new Image();
+            //Bitmap mask = new Bitmap(100, 100);
+            //if (DA.GetData<Bitmap>(1, ref mask)) { layer.Mask = mask; } else { if (DA.GetData<Image>(1, ref maskImage)) layer.Mask = maskImage.Bitmap; }
 
             int blendMode = 0;
             DA.GetData(2, ref blendMode);
