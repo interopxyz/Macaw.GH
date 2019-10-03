@@ -57,6 +57,8 @@
     <Compile Include="Construct\BuildBitmap.cs" />
     <Compile Include="Construct\CompositeImages.cs" />
     <Compile Include="Construct\LoadBitmap.cs" />
+    <Compile Include="Filters\AdjustFilters.cs" />
+    <Compile Include="Filters\ApplyFilters.cs" />
     <Compile Include="Layering\MergeLayers.cs" />
     <Compile Include="Layering\ModifyLayer.cs" />
     <Compile Include="Layering\AddLayer.cs" />
