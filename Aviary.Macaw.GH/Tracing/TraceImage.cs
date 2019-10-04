@@ -34,11 +34,11 @@ namespace Aviary.Macaw.GH
             pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Size", "S", "---", GH_ParamAccess.item, 10);
+            pManager.AddIntegerParameter("Size", "S", "---", GH_ParamAccess.item, 2);
             pManager[2].Optional = true;
             pManager.AddNumberParameter("Tolerance", "T", "---", GH_ParamAccess.item, 1.0);
             pManager[3].Optional = true;
-            pManager.AddNumberParameter("Threshold", "C", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Threshold", "C", "---", GH_ParamAccess.item, 0.9);
             pManager[4].Optional = true;
             pManager.AddNumberParameter("Alpha", "A", "---", GH_ParamAccess.item, 1.0);
             pManager[5].Optional = true;
@@ -89,7 +89,7 @@ namespace Aviary.Macaw.GH
             bool optimize = true;
             DA.GetData(6, ref optimize);
 
-            List<Polyline> polylines = bitmap.TraceToRhino(optimize, (TraceBitmap.TurnModes)mode, size, tolerance, threshold, alpha);
+            List<Polyline> polylines = bitmap.TraceToRhino(threshold, alpha, tolerance, size, optimize, (TraceBitmap.TurnModes)mode);
 
             DA.SetDataList(0, polylines);
         }

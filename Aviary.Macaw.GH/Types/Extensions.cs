@@ -35,5 +35,29 @@ namespace Aviary.Macaw.GH
             return output;
         }
 
+        public static bool TryGetImage(this IGH_Goo goo, ref Image image)
+        {
+            bool output = true;
+            Bitmap bmp = new Bitmap(100, 100);
+
+            Image img = new Image();
+            if (goo.CastTo<Bitmap>(out bmp))
+            {
+                image = new Image(bmp);
+            }
+            else
+            {
+                if (goo.CastTo<Image>(out img))
+                {
+                    image = new Image(img);
+                }
+                else
+                {
+                    output = false;
+                }
+            }
+            return output;
+        }
+
     }
 }

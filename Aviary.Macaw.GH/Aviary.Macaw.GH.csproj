@@ -54,11 +54,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aviary.Macaw.GHInfo.cs" />
+    <Compile Include="Channels\SwapChannel.cs" />
+    <Compile Include="Channels\SwapChannels.cs" />
     <Compile Include="Construct\BuildBitmap.cs" />
     <Compile Include="Construct\CompositeImages.cs" />
     <Compile Include="Construct\LoadBitmap.cs" />
-    <Compile Include="Filters\AdjustFilters.cs" />
+    <Compile Include="Filters\FiltersAdjust.cs" />
     <Compile Include="Filters\ApplyFilters.cs" />
+    <Compile Include="Filters\FiltersEffects.cs" />
+    <Compile Include="Filters\FiltersFilter.cs" />
     <Compile Include="Layering\MergeLayers.cs" />
     <Compile Include="Layering\ModifyLayer.cs" />
     <Compile Include="Layering\AddLayer.cs" />
