@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Aviary.Macaw.Filters;
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
+
+using Aviary.Macaw.Filters;
 
 namespace Aviary.Macaw.GH.Filters
 {
@@ -20,6 +21,14 @@ namespace Aviary.Macaw.GH.Filters
         public FiltersFilter()
           : base("Filter", "Filter", "Description", "Aviary 1", "Image")
         {
+        }
+
+        /// <summary>
+        /// Set Exposure level for the component.
+        /// </summary>
+        public override GH_Exposure Exposure
+        {
+            get { return GH_Exposure.quarternary; }
         }
 
         /// <summary>
@@ -57,6 +66,7 @@ namespace Aviary.Macaw.GH.Filters
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bitmap", "B", "The resulting bitmap", GH_ParamAccess.item);
             pManager.AddGenericParameter("Filter", "F", "The resulting filter", GH_ParamAccess.item);
         }
 
@@ -92,25 +102,26 @@ namespace Aviary.Macaw.GH.Filters
             switch ((FilterModes)mode)
             {
                 case FilterModes.Channel:
-                    filter = new FilterChannelFiltering(red.T0,red.T1,green.T0,green.T1,blue.T0,blue.T1,flip);
-                    image.Filters.Add(new FilterChannelFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip));
+                    filter = new ChannelFilter(red.T0,red.T1,green.T0,green.T1,blue.T0,blue.T1,flip);
+                    image.Filters.Add(new ChannelFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip));
                     break;
                 case FilterModes.HSL:
-                    filter = new FilterColorFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new FilterColorFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
+                    filter = new ColorFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
+                    image.Filters.Add(new ColorFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
                     break;
                 case FilterModes.RGB:
-                    filter = new FilterHSLFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new FilterHSLFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
+                    filter = new HSLFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
+                    image.Filters.Add(new HSLFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
                     break;
                 case FilterModes.YCbCr:
-                    filter = new FilterYCbCrFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new FilterYCbCrFiltering(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip, color));
+                    filter = new YCbCrFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
+                    image.Filters.Add(new YCbCrFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip, color));
                     break;
             }
 
             DA.SetData(0, image);
-            DA.SetData(1, filter);
+            DA.SetData(1, new Image(image.Bitmap,filter).GetFilteredBitmap());
+            DA.SetData(2, filter);
         }
 
         /// <summary>

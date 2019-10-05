@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
-using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
 
 using Aviary.Macaw.Filters;
+using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 
 namespace Aviary.Macaw.GH.Filters
 {
-    public class FiltersAdjust : GH_Component
+    public class ExtractChannel : GH_Component
     {
-
-        private enum FilterModes { Invert,Brightness,Contrast,Gamma,GrayWorld,Histogram,Hue,Saturation,Stretch,WhitePatch}
+        
         /// <summary>
-        /// Initializes a new instance of the AdjustFilters class.
+        /// Initializes a new instance of the ExtractChannel class.
         /// </summary>
-        public FiltersAdjust()
-          : base("Adjust Filters", "Adjust", "Description", "Aviary 1", "Image")
+        public ExtractChannel()
+          : base("Extract Channel", "Extract", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -36,17 +35,14 @@ namespace Aviary.Macaw.GH.Filters
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Mode", "M", "", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value", "V", "---", GH_ParamAccess.item, 1.0);
-            pManager[2].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
-            foreach (FilterModes value in Enum.GetValues(typeof(FilterModes)))
+            foreach (Aviary.Macaw.Filters.ExtractChannel.ChannelModes value in Enum.GetValues(typeof(Aviary.Macaw.Filters.ExtractChannel.ChannelModes)))
             {
                 param.AddNamedValue(value.ToString(), (int)value);
             }
-
         }
 
         /// <summary>
@@ -72,55 +68,9 @@ namespace Aviary.Macaw.GH.Filters
 
             int mode = 0;
             DA.GetData(1, ref mode);
-            
-            double numVal = 0;
-            DA.GetData(2, ref numVal);
 
-            Filter filter = new Filter();
-
-            switch ((FilterModes)mode)
-            {
-                case FilterModes.Brightness:
-                    filter = new Brightness((int)numVal);
-                    image.Filters.Add(new Brightness((int)numVal));
-                    break;
-                case FilterModes.Contrast:
-                    filter = new Contrast((int)numVal);
-                    image.Filters.Add(new Contrast((int)numVal));
-                    break;
-                case FilterModes.Gamma:
-                    filter = new Gamma(numVal);
-                    image.Filters.Add(new Gamma(numVal));
-                    break;
-                case FilterModes.GrayWorld:
-                    filter = new GrayWorld();
-                    image.Filters.Add(new GrayWorld());
-                    break;
-                case FilterModes.Histogram:
-                    filter = new Histogram();
-                    image.Filters.Add(new Histogram());
-                    break;
-                case FilterModes.Hue:
-                    filter = new Hue((int)numVal);
-                    image.Filters.Add(new Hue((int)numVal));
-                    break;
-                case FilterModes.Invert:
-                    filter = new Invert();
-                    image.Filters.Add(new Invert());
-                    break;
-                case FilterModes.Saturation:
-                    filter = new Saturation(numVal);
-                    image.Filters.Add(new Saturation(numVal));
-                    break;
-                case FilterModes.Stretch:
-                    filter = new Stretch();
-                    image.Filters.Add(new Stretch());
-                    break;
-                case FilterModes.WhitePatch:
-                    filter = new WhitePatch();
-                    image.Filters.Add(new WhitePatch());
-                    break;
-            }
+            Filter filter = new Aviary.Macaw.Filters.ExtractChannel(( Macaw.Filters.ExtractChannel.ChannelModes)mode);
+            image.Filters.Add(new Aviary.Macaw.Filters.ExtractChannel((Macaw.Filters.ExtractChannel.ChannelModes)mode));
 
             DA.SetData(0, image);
             DA.SetData(1, new Image(image.Bitmap, filter).GetFilteredBitmap());
@@ -145,7 +95,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("f5188034-5d64-4718-8e7f-498b1f2e5fca"); }
+            get { return new Guid("2443d621-d117-46c0-ae0c-27e3747d641a"); }
         }
     }
 }

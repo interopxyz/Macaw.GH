@@ -57,6 +57,7 @@ namespace Aviary.Macaw.GH.Filters
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bitmap", "B", "The resulting bitmap", GH_ParamAccess.item);
             pManager.AddGenericParameter("Filter", "F", "The resulting filter", GH_ParamAccess.item);
         }
 
@@ -85,49 +86,50 @@ namespace Aviary.Macaw.GH.Filters
             switch ((FilterModes)mode)
             {
                 case FilterModes.Additive:
-                    filter = new FilterAdditive();
-                    image.Filters.Add(new FilterAdditive());
+                    filter = new Additive();
+                    image.Filters.Add(new Additive());
                     break;
                 case FilterModes.Daube:
-                    filter = new FilterDaube((int)numValA);
-                    image.Filters.Add(new FilterDaube((int)numValA));
+                    filter = new Daube((int)numValA);
+                    image.Filters.Add(new Daube((int)numValA));
                     break;
                 case FilterModes.SaltPepper:
-                    filter = new FilterSaltPepper((int)numValA);
-                    image.Filters.Add(new FilterSaltPepper((int)numValA));
+                    filter = new SaltPepper((int)numValA);
+                    image.Filters.Add(new SaltPepper((int)numValA));
                     break;
                 case FilterModes.Jitter:
-                    filter = new FilterJitter((int)numValA);
-                    image.Filters.Add(new FilterJitter((int)numValA));
+                    filter = new Jitter((int)numValA);
+                    image.Filters.Add(new Jitter((int)numValA));
                     break;
                 case FilterModes.Kuwahara:
-                    filter = new FilterKuwahara((int)numValA);
-                    image.Filters.Add(new FilterKuwahara((int)numValA));
+                    filter = new Kuwahara((int)numValA);
+                    image.Filters.Add(new Kuwahara((int)numValA));
                     break;
                 case FilterModes.GaussianBlur:
-                    filter = new FilterGaussianBlur(numValA, (int)numValB);
-                    image.Filters.Add(new FilterGaussianBlur(numValA, (int)numValB));
+                    filter = new GaussianBlur(numValA, (int)numValB);
+                    image.Filters.Add(new GaussianBlur(numValA, (int)numValB));
                     break;
                 case FilterModes.Pixelate:
-                    filter = new FilterPixelate((int)numValA, (int)numValB);
-                    image.Filters.Add(new FilterPixelate((int)numValA, (int)numValB));
+                    filter = new Pixelate((int)numValA, (int)numValB);
+                    image.Filters.Add(new Pixelate((int)numValA, (int)numValB));
                     break;
                 case FilterModes.Posterize:
-                    filter = new FilterPosterize((int)numValA, (int)numValB);
-                    image.Filters.Add(new FilterPosterize((int)numValA, (int)numValB));
+                    filter = new Posterize((int)numValA, (int)numValB);
+                    image.Filters.Add(new Posterize((int)numValA, (int)numValB));
                     break;
                 case FilterModes.Blur:
-                    filter = new FilterBlur((int)numValA, (int)numValB);
-                    image.Filters.Add(new FilterBlur((int)numValA, (int)numValB));
+                    filter = new Blur((int)numValA, (int)numValB);
+                    image.Filters.Add(new Blur((int)numValA, (int)numValB));
                     break;
                 case FilterModes.BoxBlur:
-                    filter = new FilterBoxBlur((int)numValA, (int)numValB);
-                    image.Filters.Add(new FilterBoxBlur((int)numValA, (int)numValB));
+                    filter = new BoxBlur((int)numValA, (int)numValB);
+                    image.Filters.Add(new BoxBlur((int)numValA, (int)numValB));
                     break;
             }
 
             DA.SetData(0, image);
-            DA.SetData(1, filter);
+            DA.SetData(1, new Image(image.Bitmap, filter).GetFilteredBitmap());
+            DA.SetData(2, filter);
         }
 
         /// <summary>

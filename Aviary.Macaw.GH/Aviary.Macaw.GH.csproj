@@ -59,6 +59,7 @@
     <Compile Include="Construct\BuildBitmap.cs" />
     <Compile Include="Construct\CompositeImages.cs" />
     <Compile Include="Construct\LoadBitmap.cs" />
+    <Compile Include="Filters\ExtractChannel.cs" />
     <Compile Include="Filters\FiltersAdjust.cs" />
     <Compile Include="Filters\ApplyFilters.cs" />
     <Compile Include="Filters\FiltersEffects.cs" />
