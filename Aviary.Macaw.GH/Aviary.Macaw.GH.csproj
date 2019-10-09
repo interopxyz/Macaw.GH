@@ -59,8 +59,10 @@
     <Compile Include="Construct\BuildBitmap.cs" />
     <Compile Include="Construct\CompositeImages.cs" />
     <Compile Include="Construct\LoadBitmap.cs" />
+    <Compile Include="Filters\FilterBlob.cs" />
     <Compile Include="Filters\FilterDifference.cs" />
     <Compile Include="Filters\FilterEdges.cs" />
+    <Compile Include="Filters\FilterFigure.cs" />
     <Compile Include="Filters\FilterGrayscale.cs" />
     <Compile Include="Filters\FilterReplaceChannels.cs" />
     <Compile Include="Filters\FilterDithering.cs" />
