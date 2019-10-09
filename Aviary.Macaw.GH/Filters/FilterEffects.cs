@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH.Filters
     public class FilterEffects : GH_Component
     {
 
-        private enum FilterModes { Additive, SaltPepper, Daube, Jitter, Kuwahara, Blur, BoxBlur, GaussianBlur, Pixellate, Posterize }
+        private enum FilterModes { Additive, SaltPepper, Daube, Jitter, Kuwahara, Blur, GaussianBlur, Pixellate, Posterize }
         /// <summary>
         /// Initializes a new instance of the AdjustFilters class.
         /// </summary>
@@ -121,10 +121,6 @@ namespace Aviary.Macaw.GH.Filters
                 case FilterModes.Blur:
                     filter = new Blur((int)numValA, (int)numValB);
                     image.Filters.Add(new Blur((int)numValA, (int)numValB));
-                    break;
-                case FilterModes.BoxBlur:
-                    filter = new BoxBlur((int)numValA, (int)numValB);
-                    image.Filters.Add(new BoxBlur((int)numValA, (int)numValB));
                     break;
             }
 

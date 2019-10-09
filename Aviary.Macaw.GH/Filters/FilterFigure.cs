@@ -141,7 +141,7 @@ namespace Aviary.Macaw.GH.Filters
                     break;
                 case FilterModes.FillHoles:
                     filter = new FillHoles(valueB,valueC,valueA);
-                    image.Filters.Add(new SkeletonizationZhangSuen());
+                    image.Filters.Add(new FillHoles(valueB, valueC, valueA));
                     break;
             }
 

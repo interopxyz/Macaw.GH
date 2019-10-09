@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
+using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
+
+using Aviary.Macaw.Filters;
+using Aviary.Macaw.Filters.Figures;
 
 namespace Aviary.Macaw.GH.Filters
 {
@@ -64,68 +69,34 @@ namespace Aviary.Macaw.GH.Filters
             if (!DA.GetData(0, ref goo)) return;
             if (!goo.TryGetImage(ref image)) return;
 
-            int mode = 0;
-            DA.GetData(1, ref mode);
+            Interval numValA = new Interval(1,100);
+            DA.GetData(1, ref numValA);
 
-            IGH_Goo gooA = null;
-            Image imageA = new Image();
-            if (!DA.GetData(2, ref gooA)) return;
-            if (!goo.TryGetImage(ref imageA)) return;
+            Interval numValB = new Interval(1, 100);
+            DA.GetData(2, ref numValB);
 
-            Bitmap overlay = imageA.GetFilteredBitmap();
+            bool unique = false;
+            DA.GetData(3, ref unique);
 
-            double numVal = 1.0;
-            DA.GetData(3, ref numVal);
+            bool blobs = false;
+            DA.GetData(4, ref blobs);
+
+            bool coupled = false;
+            DA.GetData(5, ref coupled);
 
             Filter filter = new Filter();
 
-            switch ((FilterModes)mode)
+            if (unique)
             {
-                case FilterModes.Add:
-                    filter = new Add(overlay);
-                    image.Filters.Add(new Add(overlay));
-                    break;
-                case FilterModes.Subtract:
-                    filter = new Subtract(overlay);
-                    image.Filters.Add(new Subtract(overlay));
-                    break;
-                case FilterModes.Multiply:
-                    filter = new Multiply(overlay);
-                    image.Filters.Add(new Multiply(overlay));
-                    break;
-                case FilterModes.Divide:
-                    filter = new Divide(overlay);
-                    image.Filters.Add(new Divide(overlay));
-                    break;
-                case FilterModes.Euclidean:
-                    filter = new Euclidean(overlay, (int)numVal);
-                    image.Filters.Add(new Euclidean(overlay, (int)numVal));
-                    break;
-                case FilterModes.FlatField:
-                    filter = new FlatField(overlay);
-                    image.Filters.Add(new FlatField(overlay));
-                    break;
-                case FilterModes.Intersect:
-                    filter = new Intersect(overlay);
-                    image.Filters.Add(new Intersect(overlay));
-                    break;
-                case FilterModes.Merge:
-                    filter = new Merge(overlay);
-                    image.Filters.Add(new Merge(overlay));
-                    break;
-                case FilterModes.Morph:
-                    filter = new Morph(overlay, numVal);
-                    image.Filters.Add(new Morph(overlay, numVal));
-                    break;
-                case FilterModes.MoveTowards:
-                    filter = new MoveTowards(overlay, (int)numVal);
-                    image.Filters.Add(new MoveTowards(overlay, (int)numVal));
-                    break;
-                case FilterModes.Simple:
-                    filter = new Simple(overlay, (int)numVal);
-                    image.Filters.Add(new Simple(overlay, (int)numVal));
-                    break;
+                filter = new BlobsUnique(numValA.ToDomain(),numValB.ToDomain(),blobs,coupled);
+                image.Filters.Add(new BlobsUnique(numValA.ToDomain(), numValB.ToDomain(), blobs, coupled));
             }
+            else
+            {
+                filter = new BlobsFilter(numValA.ToDomain(), numValB.ToDomain(), coupled);
+                image.Filters.Add(new BlobsFilter(numValA.ToDomain(), numValB.ToDomain(), coupled));
+            }
+
 
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
