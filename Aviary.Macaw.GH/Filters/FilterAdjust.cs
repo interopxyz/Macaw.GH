@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
 
 using Aviary.Macaw.Filters;
-using Grasshopper.Kernel.Types;
+using Aviary.Macaw.Filters.Adjustments;
 
 namespace Aviary.Macaw.GH.Filters
 {
-    public class FiltersAdjust : GH_Component
+    public class FilterAdjust : GH_Component
     {
 
-        private enum FilterModes { Invert,Brightness,Contrast,Gamma,GrayWorld,Histogram,Hue,Saturation,Stretch,WhitePatch}
+        private enum FilterModes { Invert, Brightness, Contrast, Gamma, GrayWorld, Sepia, Histogram, Hue, Saturation, Stretch, WhitePatch,RGChromacity }
         /// <summary>
         /// Initializes a new instance of the AdjustFilters class.
         /// </summary>
-        public FiltersAdjust()
+        public FilterAdjust()
           : base("Adjust Filters", "Adjust", "Description", "Aviary 1", "Image")
         {
         }
@@ -72,7 +73,7 @@ namespace Aviary.Macaw.GH.Filters
 
             int mode = 0;
             DA.GetData(1, ref mode);
-            
+
             double numVal = 0;
             DA.GetData(2, ref numVal);
 
@@ -80,6 +81,30 @@ namespace Aviary.Macaw.GH.Filters
 
             switch ((FilterModes)mode)
             {
+                case FilterModes.GrayWorld:
+                    filter = new GrayWorld();
+                    image.Filters.Add(new GrayWorld());
+                    break;
+                case FilterModes.Histogram:
+                    filter = new Histogram();
+                    image.Filters.Add(new Histogram());
+                    break;
+                case FilterModes.Invert:
+                    filter = new Invert();
+                    image.Filters.Add(new Invert());
+                    break;
+                case FilterModes.Stretch:
+                    filter = new Stretch();
+                    image.Filters.Add(new Stretch());
+                    break;
+                case FilterModes.WhitePatch:
+                    filter = new WhitePatch();
+                    image.Filters.Add(new WhitePatch());
+                    break;
+                case FilterModes.Sepia:
+                    filter = new Sepia();
+                    image.Filters.Add(new Sepia());
+                    break;
                 case FilterModes.Brightness:
                     filter = new Brightness((int)numVal);
                     image.Filters.Add(new Brightness((int)numVal));
@@ -92,38 +117,22 @@ namespace Aviary.Macaw.GH.Filters
                     filter = new Gamma(numVal);
                     image.Filters.Add(new Gamma(numVal));
                     break;
-                case FilterModes.GrayWorld:
-                    filter = new GrayWorld();
-                    image.Filters.Add(new GrayWorld());
-                    break;
-                case FilterModes.Histogram:
-                    filter = new Histogram();
-                    image.Filters.Add(new Histogram());
-                    break;
                 case FilterModes.Hue:
                     filter = new Hue((int)numVal);
                     image.Filters.Add(new Hue((int)numVal));
-                    break;
-                case FilterModes.Invert:
-                    filter = new Invert();
-                    image.Filters.Add(new Invert());
                     break;
                 case FilterModes.Saturation:
                     filter = new Saturation(numVal);
                     image.Filters.Add(new Saturation(numVal));
                     break;
-                case FilterModes.Stretch:
-                    filter = new Stretch();
-                    image.Filters.Add(new Stretch());
-                    break;
-                case FilterModes.WhitePatch:
-                    filter = new WhitePatch();
-                    image.Filters.Add(new WhitePatch());
+                case FilterModes.RGChromacity:
+                    filter = new RGChromacity();
+                    image.Filters.Add(new RGChromacity());
                     break;
             }
 
             DA.SetData(0, image);
-            DA.SetData(1, new Image(image.Bitmap, filter).GetFilteredBitmap());
+            DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
         }
 

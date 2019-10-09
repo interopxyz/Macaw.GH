@@ -59,11 +59,19 @@
     <Compile Include="Construct\BuildBitmap.cs" />
     <Compile Include="Construct\CompositeImages.cs" />
     <Compile Include="Construct\LoadBitmap.cs" />
-    <Compile Include="Filters\ExtractChannel.cs" />
-    <Compile Include="Filters\FiltersAdjust.cs" />
+    <Compile Include="Filters\FilterDifference.cs" />
+    <Compile Include="Filters\FilterEdges.cs" />
+    <Compile Include="Filters\FilterGrayscale.cs" />
+    <Compile Include="Filters\FilterReplaceChannels.cs" />
+    <Compile Include="Filters\FilterDithering.cs" />
+    <Compile Include="Filters\FilterExtract.cs" />
+    <Compile Include="Filters\FilterAdjust.cs" />
     <Compile Include="Filters\ApplyFilters.cs" />
-    <Compile Include="Filters\FiltersEffects.cs" />
-    <Compile Include="Filters\FiltersFilter.cs" />
+    <Compile Include="Filters\FilterEffects.cs" />
+    <Compile Include="Filters\FilterFilter.cs" />
+    <Compile Include="Filters\FilterSharpen.cs" />
+    <Compile Include="Filters\FilterLevels.cs" />
+    <Compile Include="Filters\FilterThreshold.cs" />
     <Compile Include="Layering\MergeLayers.cs" />
     <Compile Include="Layering\ModifyLayer.cs" />
     <Compile Include="Layering\AddLayer.cs" />
@@ -86,6 +94,13 @@
     <Compile Include="Tracing\GetCorners.cs" />
     <Compile Include="Tracing\GetShapes.cs" />
     <Compile Include="Tracing\TraceImage.cs" />
+    <Compile Include="Transform\Crop.cs" />
+    <Compile Include="Transform\Mirror.cs" />
+    <Compile Include="Transform\Move.cs" />
+    <Compile Include="Transform\Polar.cs" />
+    <Compile Include="Transform\Resize.cs" />
+    <Compile Include="Transform\Rotate.cs" />
+    <Compile Include="Transform\Shrink.cs" />
     <Compile Include="Types\Extensions.cs" />
   </ItemGroup>
   <ItemGroup>

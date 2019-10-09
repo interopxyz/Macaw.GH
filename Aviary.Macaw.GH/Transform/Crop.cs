@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
-using Aviary.Macaw.Filters;
-using Grasshopper.Kernel.Parameters;
-using Grasshopper.Kernel.Types;
+using Af = Aviary.Macaw.Filters.Transform;
 
-namespace Aviary.Macaw.GH.Filters
+namespace Aviary.Macaw.GH.Transform
 {
-    public class ExtractChannel : GH_Component
+    public class Crop : GH_Component
     {
-        
         /// <summary>
-        /// Initializes a new instance of the ExtractChannel class.
+        /// Initializes a new instance of the Crop class.
         /// </summary>
-        public ExtractChannel()
-          : base("Extract Channel", "Extract", "Description", "Aviary 1", "Image")
+        public Crop()
+          : base("Crop Image", "Crop", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -26,7 +25,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.quarternary; }
+            get { return GH_Exposure.quinary; }
         }
 
         /// <summary>
@@ -35,14 +34,12 @@ namespace Aviary.Macaw.GH.Filters
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "", GH_ParamAccess.item, 0);
+            pManager.AddRectangleParameter("Region", "R", "", GH_ParamAccess.item, new Rectangle3d(Plane.WorldXY, 100, 100));
             pManager[1].Optional = true;
-
-            Param_Integer param = (Param_Integer)pManager[1];
-            foreach (Aviary.Macaw.Filters.ExtractChannel.ChannelModes value in Enum.GetValues(typeof(Aviary.Macaw.Filters.ExtractChannel.ChannelModes)))
-            {
-                param.AddNamedValue(value.ToString(), (int)value);
-            }
+            pManager.AddBooleanParameter("Keep Original", "K", "", GH_ParamAccess.item, true);
+            pManager[2].Optional = true;
+            pManager.AddColourParameter("Color", "C", "", GH_ParamAccess.item, Color.Black);
+            pManager[3].Optional = true;
         }
 
         /// <summary>
@@ -66,14 +63,21 @@ namespace Aviary.Macaw.GH.Filters
             if (!DA.GetData(0, ref goo)) return;
             if (!goo.TryGetImage(ref image)) return;
 
-            int mode = 0;
-            DA.GetData(1, ref mode);
+            Rectangle3d region= new Rectangle3d();
+            DA.GetData(1, ref region);
 
-            Filter filter = new Aviary.Macaw.Filters.ExtractChannel(( Macaw.Filters.ExtractChannel.ChannelModes)mode);
-            image.Filters.Add(new Aviary.Macaw.Filters.ExtractChannel((Macaw.Filters.ExtractChannel.ChannelModes)mode));
+            bool original = false;
+            DA.GetData(2, ref original);
+
+            Color color = Color.Black;
+            DA.GetData(3, ref color);
+
+            Filter filter = new Af.Crop(original,color,region.ToDrawingRect());
+            image.Filters.Add(new Af.Crop(original, color, region.ToDrawingRect()));
+
 
             DA.SetData(0, image);
-            DA.SetData(1, new Image(image.Bitmap, filter).GetFilteredBitmap());
+            DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
         }
 
@@ -95,7 +99,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("2443d621-d117-46c0-ae0c-27e3747d641a"); }
+            get { return new Guid("c8a4cbd0-806e-4124-9e20-a674a0200365"); }
         }
     }
 }

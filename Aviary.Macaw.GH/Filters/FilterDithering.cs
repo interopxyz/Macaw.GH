@@ -1,25 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+
 using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
-
-using Aviary.Macaw.Filters;
+using Aviary.Macaw.Filters.Dither;
 
 namespace Aviary.Macaw.GH.Filters
 {
-    public class FiltersFilter : GH_Component
+    public class FilterDithering : GH_Component
     {
-        public enum FilterModes { Channel,RGB,HSL,YCbCr};
-
-
+        private enum FilterModes { Bayer, Burkes, Carry, FloydSteinberg, JarvisJudiceNinke, Ordered, Sierra, Stucki }
         /// <summary>
-        /// Initializes a new instance of the FiltersFilter class.
+        /// Initializes a new instance of the FiltersDithering class.
         /// </summary>
-        public FiltersFilter()
-          : base("Filter", "Filter", "Description", "Aviary 1", "Image")
+        public FilterDithering()
+          : base("Filters Dithering", "Dithering", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -37,26 +34,15 @@ namespace Aviary.Macaw.GH.Filters
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-
-            pManager.AddIntervalParameter("Red", "R", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager.AddIntegerParameter("Value", "V", "---", GH_ParamAccess.item, 1);
             pManager[2].Optional = true;
-            pManager.AddIntervalParameter("Green", "G", "---", GH_ParamAccess.item, new Interval(0, 1));
-            pManager[3].Optional = true;
-            pManager.AddIntervalParameter("Blue", "B", "---", GH_ParamAccess.item, new Interval(0, 1));
-            pManager[4].Optional = true;
 
-            pManager.AddBooleanParameter("Flip", "F", "---", GH_ParamAccess.item, false);
-            pManager[5].Optional = true;
-
-            pManager.AddColourParameter("Color", "C", "---", GH_ParamAccess.item, Color.Black);
-            pManager[6].Optional = true;
-
-            Param_Integer paramA = (Param_Integer)pManager[1];
+            Param_Integer param = (Param_Integer)pManager[1];
             foreach (FilterModes value in Enum.GetValues(typeof(FilterModes)))
             {
-                paramA.AddNamedValue(value.ToString(), (int)value);
+                param.AddNamedValue(value.ToString(), (int)value);
             }
         }
 
@@ -84,43 +70,49 @@ namespace Aviary.Macaw.GH.Filters
             int mode = 0;
             DA.GetData(1, ref mode);
 
-            Interval red = new Interval(0,1);
-            DA.GetData(2, ref red);
-            Interval green = new Interval(0, 1);
-            DA.GetData(3, ref green);
-            Interval blue = new Interval(0, 1);
-            DA.GetData(4, ref blue);
-
-            bool flip = false;
-            DA.GetData(5, ref flip);
-
-            Color color = Color.Black;
-            DA.GetData(6, ref color);
+            int numVal = 0;
+            DA.GetData(2, ref numVal);
 
             Filter filter = new Filter();
 
             switch ((FilterModes)mode)
             {
-                case FilterModes.Channel:
-                    filter = new ChannelFilter(red.T0,red.T1,green.T0,green.T1,blue.T0,blue.T1,flip);
-                    image.Filters.Add(new ChannelFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip));
+                case FilterModes.Bayer:
+                    filter = new Bayer();
+                    image.Filters.Add(new Bayer());
                     break;
-                case FilterModes.HSL:
-                    filter = new ColorFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new ColorFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
+                case FilterModes.Burkes:
+                    filter = new Burkes(numVal);
+                    image.Filters.Add(new Burkes(numVal));
                     break;
-                case FilterModes.RGB:
-                    filter = new HSLFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new HSLFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
+                case FilterModes.Carry:
+                    filter = new Carry(numVal);
+                    image.Filters.Add(new Carry(numVal));
                     break;
-                case FilterModes.YCbCr:
-                    filter = new YCbCrFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new YCbCrFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip, color));
+                case FilterModes.FloydSteinberg:
+                    filter = new FloydSteinberg(numVal);
+                    image.Filters.Add(new FloydSteinberg(numVal));
+                    break;
+                case FilterModes.JarvisJudiceNinke:
+                    filter = new JarvisJudiceNinke(numVal);
+                    image.Filters.Add(new JarvisJudiceNinke(numVal));
+                    break;
+                case FilterModes.Ordered:
+                    filter = new Ordered();
+                    image.Filters.Add(new Ordered());
+                    break;
+                case FilterModes.Sierra:
+                    filter = new Sierra(numVal);
+                    image.Filters.Add(new Sierra(numVal));
+                    break;
+                case FilterModes.Stucki:
+                    filter = new Stucki(numVal);
+                    image.Filters.Add(new Stucki(numVal));
                     break;
             }
 
             DA.SetData(0, image);
-            DA.SetData(1, new Image(image.Bitmap,filter).GetFilteredBitmap());
+            DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
         }
 
@@ -142,7 +134,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("8aec8998-8929-497e-bf2c-5ec96272b208"); }
+            get { return new Guid("806a05e5-b39e-452c-abe6-439f9ce6016e"); }
         }
     }
 }

@@ -11,6 +11,11 @@ namespace Aviary.Macaw.GH
     public static class Extensions
     {
 
+        public static Aviary.Wind.Mathematics.Domain ToDomain(this Rhino.Geometry.Interval input)
+        {
+            return new Aviary.Wind.Mathematics.Domain(input.T0, input.T1);
+        }
+
         public static bool TryGetBitmap(this IGH_Goo goo, ref Bitmap bitmap)
         {
             bool output = true;

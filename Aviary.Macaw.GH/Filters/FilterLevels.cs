@@ -5,20 +5,24 @@ using Grasshopper.Kernel;
 using Grasshopper.Kernel.Parameters;
 using Rhino.Geometry;
 
-using Aviary.Macaw.Filters;
+using Aviary.Macaw;
+using Aviary.Macaw.Filters.Levels;
+
+using Aviary.Wind;
+
 using Grasshopper.Kernel.Types;
 
 namespace Aviary.Macaw.GH.Filters
 {
-    public class FiltersEffects : GH_Component
+    public class FilterLevels : GH_Component
     {
+        private enum FilterModes { HSL, RGB, RGB16, YCbCr }
 
-        private enum FilterModes { Additive, SaltPepper, Daube, Jitter, Kuwahara, Blur, BoxBlur, GaussianBlur, Pixelate, Posterize }
         /// <summary>
-        /// Initializes a new instance of the AdjustFilters class.
+        /// Initializes a new instance of the FiltersLevels class.
         /// </summary>
-        public FiltersEffects()
-          : base("Effects Filters", "Effects", "Description", "Aviary 1", "Image")
+        public FilterLevels()
+          : base("Filters Levels", "Levels", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -38,17 +42,24 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value A", "A", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddIntervalParameter("Value A", "A", "---", GH_ParamAccess.item, new Interval(0,1));
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Value B", "B", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddIntervalParameter("Value B", "B", "---", GH_ParamAccess.item, new Interval(0, 1));
             pManager[3].Optional = true;
+            pManager.AddIntervalParameter("Value C", "C", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager[4].Optional = true;
+            pManager.AddIntervalParameter("Value D", "D", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager[5].Optional = true;
+            pManager.AddIntervalParameter("Value E", "E", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager[6].Optional = true;
+            pManager.AddIntervalParameter("Value F", "F", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager[7].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
             foreach (FilterModes value in Enum.GetValues(typeof(FilterModes)))
             {
                 param.AddNamedValue(value.ToString(), (int)value);
             }
-
         }
 
         /// <summary>
@@ -75,60 +86,49 @@ namespace Aviary.Macaw.GH.Filters
             int mode = 0;
             DA.GetData(1, ref mode);
 
-            double numValA = 0;
+            Interval numValA = new Interval(0,1);
             DA.GetData(2, ref numValA);
 
-            double numValB = 0;
+            Interval numValB = new Interval(0,1);
             DA.GetData(3, ref numValB);
+
+            Interval numValC = new Interval(0, 1);
+            DA.GetData(4, ref numValA);
+
+            Interval numValD = new Interval(0, 1);
+            DA.GetData(5, ref numValB);
+
+            Interval numValE = new Interval(0, 1);
+            DA.GetData(6, ref numValA);
+
+            Interval numValF = new Interval(0, 1);
+            DA.GetData(7, ref numValB);
 
             Filter filter = new Filter();
 
             switch ((FilterModes)mode)
             {
-                case FilterModes.Additive:
-                    filter = new Additive();
-                    image.Filters.Add(new Additive());
+                case FilterModes.HSL:
+                    filter = new HSL(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain());
+                    image.Filters.Add(new HSL(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain()));
                     break;
-                case FilterModes.Daube:
-                    filter = new Daube((int)numValA);
-                    image.Filters.Add(new Daube((int)numValA));
+                case FilterModes.RGB:
+                    filter = new RGB(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain(), numValE.ToDomain(), numValF.ToDomain());
+                    image.Filters.Add(new RGB(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain(), numValE.ToDomain(), numValF.ToDomain()));
                     break;
-                case FilterModes.SaltPepper:
-                    filter = new SaltPepper((int)numValA);
-                    image.Filters.Add(new SaltPepper((int)numValA));
+                case FilterModes.RGB16:
+                    filter = new RGB16(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain(), numValE.ToDomain(), numValF.ToDomain());
+                    image.Filters.Add(new RGB16(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain(), numValE.ToDomain(), numValF.ToDomain()));
                     break;
-                case FilterModes.Jitter:
-                    filter = new Jitter((int)numValA);
-                    image.Filters.Add(new Jitter((int)numValA));
+                case FilterModes.YCbCr:
+                    filter = new YCbCr(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain(), numValE.ToDomain(), numValF.ToDomain());
+                    image.Filters.Add(new YCbCr(numValA.ToDomain(), numValB.ToDomain(), numValC.ToDomain(), numValD.ToDomain(), numValE.ToDomain(), numValF.ToDomain()));
                     break;
-                case FilterModes.Kuwahara:
-                    filter = new Kuwahara((int)numValA);
-                    image.Filters.Add(new Kuwahara((int)numValA));
-                    break;
-                case FilterModes.GaussianBlur:
-                    filter = new GaussianBlur(numValA, (int)numValB);
-                    image.Filters.Add(new GaussianBlur(numValA, (int)numValB));
-                    break;
-                case FilterModes.Pixelate:
-                    filter = new Pixelate((int)numValA, (int)numValB);
-                    image.Filters.Add(new Pixelate((int)numValA, (int)numValB));
-                    break;
-                case FilterModes.Posterize:
-                    filter = new Posterize((int)numValA, (int)numValB);
-                    image.Filters.Add(new Posterize((int)numValA, (int)numValB));
-                    break;
-                case FilterModes.Blur:
-                    filter = new Blur((int)numValA, (int)numValB);
-                    image.Filters.Add(new Blur((int)numValA, (int)numValB));
-                    break;
-                case FilterModes.BoxBlur:
-                    filter = new BoxBlur((int)numValA, (int)numValB);
-                    image.Filters.Add(new BoxBlur((int)numValA, (int)numValB));
-                    break;
+
             }
 
             DA.SetData(0, image);
-            DA.SetData(1, new Image(image.Bitmap, filter).GetFilteredBitmap());
+            DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
         }
 
@@ -150,7 +150,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("97575abe-3ac9-4c67-9541-63041a127d4e"); }
+            get { return new Guid("16074c9b-12f2-4335-977a-80bfe616eb87"); }
         }
     }
 }
