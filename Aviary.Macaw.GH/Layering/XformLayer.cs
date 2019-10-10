@@ -12,13 +12,13 @@ using Grasshopper.Kernel.Parameters;
 
 namespace Aviary.Macaw.GH.Layering
 {
-    public class ModifyLayer : GH_Component
+    public class XformLayer : GH_Component
     {
         /// <summary>
-        /// Initializes a new instance of the ModifyLayer class.
+        /// Initializes a new instance of the XformLayer class.
         /// </summary>
-        public ModifyLayer()
-          : base("Modify Layer", "Modify", "Modify Layer filters", "Aviary 1", "Image")
+        public XformLayer()
+          : base("Xform Layer", "Xform", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -36,15 +36,19 @@ namespace Aviary.Macaw.GH.Layering
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Layer", "L", "---", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager.AddVectorParameter("Translation Vector", "V", "---", GH_ParamAccess.item, new Vector3d());
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value", "V", "---", GH_ParamAccess.item, 0.0);
+            pManager.AddIntegerParameter("Angle", "A", "---", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
-            pManager.AddColourParameter("Color", "C", "---", GH_ParamAccess.item, Color.Black);
+            pManager.AddIntegerParameter("Width", "W", "---", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
-            
-            Param_Integer param = (Param_Integer)pManager[1];
-            foreach (Ml.Modifier.ModifierModes value in Enum.GetValues(typeof(Ml.Modifier.ModifierModes)))
+            pManager.AddIntegerParameter("Height", "H", "---", GH_ParamAccess.item, 0);
+            pManager[4].Optional = true;
+            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager[5].Optional = true;
+
+            Param_Integer param = (Param_Integer)pManager[5];
+            foreach (Ml.Layer.FittingModes value in Enum.GetValues(typeof(Ml.Layer.FittingModes)))
             {
                 param.AddNamedValue(value.ToString(), (int)value);
             }
@@ -68,18 +72,24 @@ namespace Aviary.Macaw.GH.Layering
             if (!DA.GetData(0, ref input)) return;
             Ml.Layer layer = new Ml.Layer(input);
 
+            Vector3d vector = new Vector3d();
+            if(DA.GetData(1, ref vector)) {
+                layer.X = (int)vector.X;
+                layer.Y = (int)vector.Y;
+            };
+
+            int angle = 0;
+            if(DA.GetData(2, ref angle))layer.Angle = angle;
+
+            int width = 0;
+            if (DA.GetData(3, ref width))layer.Width = width;
+
+            int height = 0;
+            if (DA.GetData(4, ref height))layer.Height = height;
+
             int mode = 0;
-            DA.GetData(1, ref mode);
-            Ml.Modifier modifier = new Ml.Modifier( (Ml.Modifier.ModifierModes)mode);
-
-            double value = 0.0;
-            if (DA.GetData(2, ref value)) modifier.Value = value;
-
-            Color color = Color.Black;
-            if (DA.GetData(3, ref color)) modifier.Color = color.ToWindColor();
-
-            layer.Modifiers.Add(modifier);
-
+            if (DA.GetData(5, ref mode)) layer.FittingMode = (Ml.Layer.FittingModes)mode;
+            
             DA.SetData(0, layer);
         }
 
@@ -92,7 +102,7 @@ namespace Aviary.Macaw.GH.Layering
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return Properties.Resources.ModifyLayerProperties;
+                return null;
             }
         }
 
@@ -101,7 +111,7 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         public override Guid ComponentGuid
         {
-            get { return new Guid("3d11f8f9-e1c1-401c-b336-cbbd80871833"); }
+            get { return new Guid("9e77b8b4-ec21-4b7a-a3aa-2624e36238f6"); }
         }
     }
 }
