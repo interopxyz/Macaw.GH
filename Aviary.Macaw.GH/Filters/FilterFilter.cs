@@ -48,7 +48,7 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddIntervalParameter("Blue", "B", "---", GH_ParamAccess.item, new Interval(0, 1));
             pManager[4].Optional = true;
 
-            pManager.AddBooleanParameter("Flip", "F", "---", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Flip", "F", "---", GH_ParamAccess.item, true);
             pManager[5].Optional = true;
 
             pManager.AddColourParameter("Color", "C", "---", GH_ParamAccess.item, Color.Black);
@@ -85,14 +85,14 @@ namespace Aviary.Macaw.GH.Filters
             int mode = 0;
             DA.GetData(1, ref mode);
 
-            Interval red = new Interval(0,1);
-            DA.GetData(2, ref red);
-            Interval green = new Interval(0, 1);
-            DA.GetData(3, ref green);
-            Interval blue = new Interval(0, 1);
-            DA.GetData(4, ref blue);
+            Interval valA = new Interval(0,1);
+            DA.GetData(2, ref valA);
+            Interval valB = new Interval(0, 1);
+            DA.GetData(3, ref valB);
+            Interval valC = new Interval(0, 1);
+            DA.GetData(4, ref valC);
 
-            bool flip = false;
+            bool flip = true;
             DA.GetData(5, ref flip);
 
             Color color = Color.Black;
@@ -103,26 +103,52 @@ namespace Aviary.Macaw.GH.Filters
             switch ((FilterModes)mode)
             {
                 case FilterModes.Channel:
-                    filter = new Channel(red.T0,red.T1,green.T0,green.T1,blue.T0,blue.T1,flip);
-                    image.Filters.Add(new Channel(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip));
+                    SetParameter(2, "R", "Red", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "G", "Green", "[0-1] Unitized adjustment value");
+                    SetParameter(4, "B", "Blue", "[0-1] Unitized adjustment value");
+                    SetParameter(5, "F", "Outside", "Flip between inside and outside range");
+                    filter = new Channel(valA.ToDomain(),valB.ToDomain(), valC.ToDomain(), flip);
+                    image.Filters.Add(new Channel(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip));
                     break;
                 case FilterModes.HSL:
-                    filter = new ColorFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new ColorFilter(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
+                    SetParameter(2, "H", "Hue", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "S", "Saturation", "[0-1] Unitized adjustment value");
+                    SetParameter(4, "L", "Luminance", "[0-1] Unitized adjustment value");
+                    SetParameter(5, "F", "Outside", "Flip between inside and outside range");
+                    SetParameter(6, "C", "Color", "Replacement Color");
+                    filter = new ColorFilter(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip,color);
+                    image.Filters.Add(new ColorFilter(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip,color));
                     break;
                 case FilterModes.RGB:
-                    filter = new HSL(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new HSL(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color));
+                    SetParameter(2, "R", "Red", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "G", "Green", "[0-1] Unitized adjustment value");
+                    SetParameter(4, "B", "Blue", "[0-1] Unitized adjustment value");
+                    SetParameter(5, "F", "Outside", "Flip between inside and outside range");
+                    SetParameter(6, "C", "Color", "Replacement Color");
+                    filter = new HSL(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip,color);
+                    image.Filters.Add(new HSL(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip,color));
                     break;
                 case FilterModes.YCbCr:
-                    filter = new YCbCr(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip,color);
-                    image.Filters.Add(new YCbCr(red.T0, red.T1, green.T0, green.T1, blue.T0, blue.T1, flip, color));
+                    SetParameter(2, "Y", "Y", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "Cb", "Cb", "[0-1] Unitized adjustment value");
+                    SetParameter(4, "Cr", "Cr", "[0-1] Unitized adjustment value");
+                    SetParameter(5, "F", "Outside", "Flip between inside and outside range");
+                    SetParameter(6, "C", "Color", "Replacement Color");
+                    filter = new YCbCr(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip,color);
+                    image.Filters.Add(new YCbCr(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip, color));
                     break;
             }
 
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>

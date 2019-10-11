@@ -40,11 +40,11 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Value A", "A", "", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, false);
             pManager[2].Optional = true;
-            pManager.AddIntegerParameter("Value B", "B", "", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[3].Optional = true;
-            pManager.AddIntegerParameter("Value C", "C", "", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[4].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -92,62 +92,108 @@ namespace Aviary.Macaw.GH.Filters
             switch ((FilterModes)mode)
             {
                 case FilterModes.Closing:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new Closing();
                     image.Filters.Add(new Closing());
                     break;
                 case FilterModes.Dilation:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new Dilation();
                     image.Filters.Add(new Dilation());
                     break;
                 case FilterModes.DilationBinary:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new DilationBinary();
                     image.Filters.Add(new DilationBinary());
                     break;
                 case FilterModes.Erosion:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new Erosion();
                     image.Filters.Add(new Erosion());
                     break;
                 case FilterModes.ErosionBinary:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new ErosionBinary();
                     image.Filters.Add(new ErosionBinary());
                     break;
                 case FilterModes.HatBottom:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new HatBottom();
                     image.Filters.Add(new HatBottom());
                     break;
                 case FilterModes.HatTop:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new HatTop();
                     image.Filters.Add(new HatTop());
                     break;
                 case FilterModes.Opening:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new Opening();
                     image.Filters.Add(new Opening());
                     break;
                 case FilterModes.Skeletonization:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new Skeletonization();
                     image.Filters.Add(new Skeletonization());
                     break;
                 case FilterModes.SkeletonizationZhangSuen:
+                    SetParameter(2);
+                    SetParameter(3);
+                    SetParameter(4);
                     filter = new SkeletonizationZhangSuen();
                     image.Filters.Add(new SkeletonizationZhangSuen());
                     break;
                 case FilterModes.HorizontalBands:
+                    SetParameter(2, "B", "Borders", "Process gaps");
+                    SetParameter(3, "G", "Gap", "The pixel gap size");
+                    SetParameter(4);
                     filter = new BandsHorizontal(valueB, valueA);
                     image.Filters.Add(new BandsHorizontal(valueB, valueA));
                     break;
                 case FilterModes.VerticalBands:
+                    SetParameter(2, "B", "Borders", "Process gaps");
+                    SetParameter(3, "G", "Gap", "The pixel gap size");
+                    SetParameter(4);
                     filter = new BandsVertical(valueB,valueA);
                     image.Filters.Add(new BandsVertical(valueB, valueA));
                     break;
                 case FilterModes.FillHoles:
-                    filter = new FillHoles(valueB,valueC,valueA);
-                    image.Filters.Add(new FillHoles(valueB, valueC, valueA));
+                    SetParameter(2, "B", "Borders", "Process gaps");
+                    SetParameter(3, "W", "Width", "The pixel threshold");
+                    SetParameter(4, "H", "Height", "The pixel threshold");
+                    filter = new FillHoles(valueC,valueB,valueA);
+                    image.Filters.Add(new FillHoles(valueC, valueB, valueA));
                     break;
             }
 
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>

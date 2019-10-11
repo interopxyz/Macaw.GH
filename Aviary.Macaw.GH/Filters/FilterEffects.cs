@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH.Filters
     public class FilterEffects : GH_Component
     {
 
-        private enum FilterModes { Additive, SaltPepper, Daube, Jitter, Kuwahara, Blur, GaussianBlur, Pixellate, Posterize }
+        private enum FilterModes { Additive, SaltPepper, Daube, Jitter, Kuwahara, Posterize, Blur, GaussianBlur, Pixellate }
         /// <summary>
         /// Initializes a new instance of the AdjustFilters class.
         /// </summary>
@@ -39,9 +39,9 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value A", "A", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1.0);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Value B", "B", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1.0);
             pManager[3].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -88,40 +88,57 @@ namespace Aviary.Macaw.GH.Filters
             {
                 case FilterModes.Additive:
                     SetParameter(2);
+                    SetParameter(3);
                     filter = new Additive();
                     image.Filters.Add(new Additive());
                     break;
                 case FilterModes.Daube:
-                    filter = new Daube((int)numValA);
-                    image.Filters.Add(new Daube((int)numValA));
+                    SetParameter(2,"S","Size", "[0-1] Unitized adjustment value");
+                    SetParameter(3);
+                    filter = new Daube(numValA);
+                    image.Filters.Add(new Daube(numValA));
                     break;
                 case FilterModes.SaltPepper:
-                    filter = new SaltPepper((int)numValA);
-                    image.Filters.Add(new SaltPepper((int)numValA));
+                    SetParameter(2, "N", "Noise", "[0-1] Unitized adjustment value");
+                    SetParameter(3);
+                    filter = new SaltPepper(numValA);
+                    image.Filters.Add(new SaltPepper(numValA));
                     break;
                 case FilterModes.Jitter:
-                    filter = new Jitter((int)numValA);
-                    image.Filters.Add(new Jitter((int)numValA));
+                    SetParameter(2, "R", "Radius", "[0-1] Unitized adjustment value");
+                    SetParameter(3);
+                    filter = new Jitter(numValA);
+                    image.Filters.Add(new Jitter(numValA));
                     break;
                 case FilterModes.Kuwahara:
-                    filter = new Kuwahara((int)numValA);
-                    image.Filters.Add(new Kuwahara((int)numValA));
-                    break;
-                case FilterModes.GaussianBlur:
-                    filter = new GaussianBlur(numValA, (int)numValB);
-                    image.Filters.Add(new GaussianBlur(numValA, (int)numValB));
-                    break;
-                case FilterModes.Pixellate:
-                    filter = new Pixellate((int)numValA, (int)numValB);
-                    image.Filters.Add(new Pixellate((int)numValA, (int)numValB));
+                    SetParameter(2, "S", "Size", "[0-1] Unitized adjustment value");
+                    SetParameter(3);
+                    filter = new Kuwahara(numValA);
+                    image.Filters.Add(new Kuwahara(numValA));
                     break;
                 case FilterModes.Posterize:
-                    filter = new Posterize((int)numValA, (int)numValB);
-                    image.Filters.Add(new Posterize((int)numValA, (int)numValB));
+                    SetParameter(2, "I", "Interval", "[0-1] Unitized adjustment value");
+                    SetParameter(3);
+                    filter = new Posterize(numValA);
+                    image.Filters.Add(new Posterize(numValA));
+                    break;
+                case FilterModes.GaussianBlur:
+                    SetParameter(2, "X", "Sigma", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "S", "Size", "[0-1] Unitized adjustment value");
+                    filter = new GaussianBlur(numValA, numValB);
+                    image.Filters.Add(new GaussianBlur(numValA, numValB));
+                    break;
+                case FilterModes.Pixellate:
+                    SetParameter(2, "W", "Width", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "H", "Height", "[0-1] Unitized adjustment value");
+                    filter = new Pixellate(numValA, numValB);
+                    image.Filters.Add(new Pixellate(numValA, numValB));
                     break;
                 case FilterModes.Blur:
-                    filter = new Blur((int)numValA, (int)numValB);
-                    image.Filters.Add(new Blur((int)numValA, (int)numValB));
+                    SetParameter(2, "D", "Divisor", "[0-1] Unitized adjustment value");
+                    SetParameter(3, "T", "Threshold", "[0-1] Unitized adjustment value");
+                    filter = new Blur(numValA, numValB);
+                    image.Filters.Add(new Blur(numValA, numValB));
                     break;
             }
 

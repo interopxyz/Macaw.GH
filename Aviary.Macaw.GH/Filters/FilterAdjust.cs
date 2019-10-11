@@ -39,7 +39,7 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value", "V", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 0.5);
             pManager[2].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -74,7 +74,7 @@ namespace Aviary.Macaw.GH.Filters
             int mode = 0;
             DA.GetData(1, ref mode);
 
-            double numVal = 0;
+            double numVal = 0.5;
             DA.GetData(2, ref numVal);
 
             Filter filter = new Filter();
@@ -118,13 +118,13 @@ namespace Aviary.Macaw.GH.Filters
                     break;
                 case FilterModes.Brightness:
                     SetParameter(2, "V", "Adjust Value", "[0-1] Unitized adjustment value");
-                    filter = new Brightness((int)numVal);
-                    image.Filters.Add(new Brightness((int)numVal));
+                    filter = new Brightness(numVal);
+                    image.Filters.Add(new Brightness(numVal));
                     break;
                 case FilterModes.Contrast:
                     SetParameter(2, "V", "Factor Value", "[0-1] Unitized adjustment value");
-                    filter = new Contrast((int)numVal);
-                    image.Filters.Add(new Contrast((int)numVal));
+                    filter = new Contrast(numVal);
+                    image.Filters.Add(new Contrast(numVal));
                     break;
                 case FilterModes.Gamma:
                     SetParameter(2, "V", "Gamma Value", "[0-1] Unitized adjustment value");
@@ -133,8 +133,8 @@ namespace Aviary.Macaw.GH.Filters
                     break;
                 case FilterModes.Hue:
                     SetParameter(2, "V", "Hue Value", "[0-1] Unitized adjustment value");
-                    filter = new Hue((int)numVal);
-                    image.Filters.Add(new Hue((int)numVal));
+                    filter = new Hue(numVal);
+                    image.Filters.Add(new Hue(numVal));
                     break;
                 case FilterModes.Saturation:
                     SetParameter(2, "V", "Adjust Value", "[0-1] Unitized adjustment value");
