@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH.Filters
     public class FilterAdjust : GH_Component
     {
 
-        private enum FilterModes { Invert, Brightness, Contrast, Gamma, GrayWorld, Sepia, Histogram, Hue, Saturation, Stretch, WhitePatch,RGChromacity }
+        private enum FilterModes { Invert, GrayWorld, Stretch, Histogram, WhitePatch, RGChromacity, Sepia, Brightness, Contrast, Gamma,  Hue, Saturation}
         /// <summary>
         /// Initializes a new instance of the AdjustFilters class.
         /// </summary>
@@ -82,52 +82,64 @@ namespace Aviary.Macaw.GH.Filters
             switch ((FilterModes)mode)
             {
                 case FilterModes.GrayWorld:
+                    SetParameter(2);
                     filter = new GrayWorld();
                     image.Filters.Add(new GrayWorld());
                     break;
                 case FilterModes.Histogram:
+                    SetParameter(2);
                     filter = new Histogram();
                     image.Filters.Add(new Histogram());
                     break;
                 case FilterModes.Invert:
+                    SetParameter(2);
                     filter = new Invert();
                     image.Filters.Add(new Invert());
                     break;
                 case FilterModes.Stretch:
+                    SetParameter(2);
                     filter = new Stretch();
                     image.Filters.Add(new Stretch());
                     break;
                 case FilterModes.WhitePatch:
+                    SetParameter(2);
                     filter = new WhitePatch();
                     image.Filters.Add(new WhitePatch());
                     break;
                 case FilterModes.Sepia:
+                    SetParameter(2);
                     filter = new Sepia();
                     image.Filters.Add(new Sepia());
                     break;
+                case FilterModes.RGChromacity:
+                    SetParameter(2);
+                    filter = new RGChromacity();
+                    image.Filters.Add(new RGChromacity());
+                    break;
                 case FilterModes.Brightness:
+                    SetParameter(2, "V", "Adjust Value", "[0-1] Unitized adjustment value");
                     filter = new Brightness((int)numVal);
                     image.Filters.Add(new Brightness((int)numVal));
                     break;
                 case FilterModes.Contrast:
+                    SetParameter(2, "V", "Factor Value", "[0-1] Unitized adjustment value");
                     filter = new Contrast((int)numVal);
                     image.Filters.Add(new Contrast((int)numVal));
                     break;
                 case FilterModes.Gamma:
+                    SetParameter(2, "V", "Gamma Value", "[0-1] Unitized adjustment value");
                     filter = new Gamma(numVal);
                     image.Filters.Add(new Gamma(numVal));
                     break;
                 case FilterModes.Hue:
+                    SetParameter(2, "V", "Hue Value", "[0-1] Unitized adjustment value");
                     filter = new Hue((int)numVal);
                     image.Filters.Add(new Hue((int)numVal));
                     break;
                 case FilterModes.Saturation:
+                    SetParameter(2, "V", "Adjust Value", "[0-1] Unitized adjustment value");
                     filter = new Saturation(numVal);
                     image.Filters.Add(new Saturation(numVal));
-                    break;
-                case FilterModes.RGChromacity:
-                    filter = new RGChromacity();
-                    image.Filters.Add(new RGChromacity());
                     break;
             }
 
@@ -135,6 +147,14 @@ namespace Aviary.Macaw.GH.Filters
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
         }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
+        }
+        
 
         /// <summary>
         /// Provides an Icon for the component.

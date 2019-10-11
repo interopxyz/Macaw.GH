@@ -87,6 +87,7 @@ namespace Aviary.Macaw.GH.Filters
             switch ((FilterModes)mode)
             {
                 case FilterModes.Additive:
+                    SetParameter(2);
                     filter = new Additive();
                     image.Filters.Add(new Additive());
                     break;
@@ -127,6 +128,13 @@ namespace Aviary.Macaw.GH.Filters
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>
