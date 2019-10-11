@@ -106,20 +106,20 @@ namespace Aviary.Macaw.GH.Filters
                     image.Filters.Add(new Sepia());
                     break;
                 case FilterModes.Brightness:
-                    filter = new Brightness((int)numVal);
-                    image.Filters.Add(new Brightness((int)numVal));
+                    filter = new Brightness(numVal);
+                    image.Filters.Add(new Brightness(numVal));
                     break;
                 case FilterModes.Contrast:
-                    filter = new Contrast((int)numVal);
-                    image.Filters.Add(new Contrast((int)numVal));
+                    filter = new Contrast(numVal);
+                    image.Filters.Add(new Contrast(numVal));
                     break;
                 case FilterModes.Gamma:
                     filter = new Gamma(numVal);
                     image.Filters.Add(new Gamma(numVal));
                     break;
                 case FilterModes.Hue:
-                    filter = new Hue((int)numVal);
-                    image.Filters.Add(new Hue((int)numVal));
+                    filter = new Hue(numVal);
+                    image.Filters.Add(new Hue(numVal));
                     break;
                 case FilterModes.Saturation:
                     filter = new Saturation(numVal);
