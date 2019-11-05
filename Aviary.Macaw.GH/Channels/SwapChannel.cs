@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH.Channels
         /// Initializes a new instance of the SwapChannel class.
         /// </summary>
         public SwapChannel()
-          : base("Swap Channel", "Swap", "Description", "Aviary 1", "Image")
+          : base("Swap Channel", "Swap", "Swap one channel for another" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -35,10 +35,10 @@ namespace Aviary.Macaw.GH.Channels
         {
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             
-            pManager.AddIntegerParameter("Source", "S", "", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Source", "S", "The channel to be replaced", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
 
-            pManager.AddIntegerParameter("Target", "T", "", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Target", "T", "The new channel to replace the source channel", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[1];
@@ -82,7 +82,7 @@ namespace Aviary.Macaw.GH.Channels
 
             image.SwapChannel((Image.Channels)source, (Image.Channels)target);
 
-            DA.SetData(0, image);
+            DA.SetData(0, new Image(image.Bitmap));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace Aviary.Macaw.GH.Channels
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Swap_Channel;
             }
         }
 

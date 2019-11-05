@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH.Tracing
         /// Initializes a new instance of the GetShapes class.
         /// </summary>
         public GetShapes()
-          : base("Bitmap Shapes", "Shapes", "Get shapes from bitmap", "Aviary 1", "Image")
+          : base("Bitmap Shapes", "Shapes", "Get shapes from bitmap" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 

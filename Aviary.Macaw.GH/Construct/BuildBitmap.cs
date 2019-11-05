@@ -12,7 +12,7 @@ namespace Aviary.Macaw.GH.Construct
         /// Initializes a new instance of the BuildBitmap class.
         /// </summary>
         public BuildBitmap()
-          : base("Build Image", "Build", "Description", "Aviary 1", "Image")
+          : base("Build Image", "Build", "Build a fixed width and height bitmap from per pixel ARGB color values", "Aviary 1", "Image")
         {
         }
         
@@ -22,9 +22,9 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Width", "W", "The horizontal pixel resolution", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("Width", "W", "The horizontal pixel count", GH_ParamAccess.item, 100);
             pManager[0].Optional = true;
-            pManager.AddIntegerParameter("Height", "H", "The vertical pixel resolution", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("Height", "H", "The vertical pixel count", GH_ParamAccess.item, 100);
             pManager[1].Optional = true;
             pManager.AddColourParameter("Colors", "C", "The pixels raster colors", GH_ParamAccess.list);
 
@@ -35,7 +35,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The resulting Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The resulting Aviary Image", GH_ParamAccess.item);
         }
 
         /// <summary>

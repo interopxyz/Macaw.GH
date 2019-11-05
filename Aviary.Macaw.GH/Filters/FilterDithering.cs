@@ -11,12 +11,12 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterDithering : GH_Component
     {
-        private enum FilterModes { Bayer, Burkes, Carry, FloydSteinberg, JarvisJudiceNinke, Ordered, Sierra, Stucki }
+        private enum FilterModes { Bayer, Ordered, Burkes, Carry, FloydSteinberg, JarvisJudiceNinke, Sierra, Stucki }
         /// <summary>
         /// Initializes a new instance of the FiltersDithering class.
         /// </summary>
         public FilterDithering()
-          : base("Filters Dithering", "Dithering", "Description", "Aviary 1", "Image")
+          : base("Filter Dithering", "Dithering", "Apply dither filters to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -36,7 +36,7 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Value", "V", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Value", "V", "Filter modifier value", GH_ParamAccess.item, 1);
             pManager[2].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -81,6 +81,10 @@ namespace Aviary.Macaw.GH.Filters
                     filter = new Bayer();
                     image.Filters.Add(new Bayer());
                     break;
+                case FilterModes.Ordered:
+                    filter = new Ordered();
+                    image.Filters.Add(new Ordered());
+                    break;
                 case FilterModes.Burkes:
                     filter = new Burkes(numVal);
                     image.Filters.Add(new Burkes(numVal));
@@ -97,10 +101,6 @@ namespace Aviary.Macaw.GH.Filters
                     filter = new JarvisJudiceNinke(numVal);
                     image.Filters.Add(new JarvisJudiceNinke(numVal));
                     break;
-                case FilterModes.Ordered:
-                    filter = new Ordered();
-                    image.Filters.Add(new Ordered());
-                    break;
                 case FilterModes.Sierra:
                     filter = new Sierra(numVal);
                     image.Filters.Add(new Sierra(numVal));
@@ -116,6 +116,13 @@ namespace Aviary.Macaw.GH.Filters
             DA.SetData(2, filter);
         }
 
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
+        }
+
         /// <summary>
         /// Provides an Icon for the component.
         /// </summary>
@@ -125,7 +132,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Dither1;
             }
         }
 

@@ -17,7 +17,7 @@ namespace Aviary.Macaw.GH.Output
         /// Initializes a new instance of the ImageValue class.
         /// </summary>
         public ImageValues()
-          : base("Image Values", "Values", "Get a value type for each pixel", "Aviary 1", "Image")
+          : base("Image Values", "Values", "Get a value type for each pixel" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 

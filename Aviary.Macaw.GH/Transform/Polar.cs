@@ -16,7 +16,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Polar class.
         /// </summary>
         public Polar()
-          : base("Polar Image", "Polar", "Description", "Aviary 1", "Image")
+          : base("Polar Image", "Polar", "Apply a polar transformation to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
 
         {
         }
@@ -90,7 +90,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Polar;
             }
         }
 

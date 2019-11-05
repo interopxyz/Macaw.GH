@@ -64,7 +64,6 @@
     <Compile Include="Filters\FilterEdges.cs" />
     <Compile Include="Filters\FilterFigure.cs" />
     <Compile Include="Filters\FilterGrayscale.cs" />
-    <Compile Include="Filters\FilterReplaceChannels.cs" />
     <Compile Include="Filters\FilterDithering.cs" />
     <Compile Include="Filters\FilterExtract.cs" />
     <Compile Include="Filters\FilterAdjust.cs" />
@@ -100,6 +99,7 @@
     <Compile Include="Transform\Crop.cs" />
     <Compile Include="Transform\Mirror.cs" />
     <Compile Include="Transform\Move.cs" />
+    <Compile Include="Transform\Scale.cs" />
     <Compile Include="Transform\Polar.cs" />
     <Compile Include="Transform\Resize.cs" />
     <Compile Include="Transform\Rotate.cs" />
@@ -213,6 +213,90 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\XformLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Shrink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Mirror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Polar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Resize_B.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Rotate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Scale_C.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swap_Channels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swap_Channel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swap_ChannelsX.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ImageToBitmapC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edges1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Effects1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Figures1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filters1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grayscale1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Levels1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MonaLisa_A.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sharpen1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Threshold1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Adjust1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blob0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Channel_Use1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Difference1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dither1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edges0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Base.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

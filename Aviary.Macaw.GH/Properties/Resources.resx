@@ -121,8 +121,14 @@
   <data name="AddLayer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\AddLayer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Adjust1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Adjust1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Aviary_Logo_sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Aviary-Logo-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Base" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Base.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BitmapProperties" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BitmapProperties.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,11 +136,32 @@
   <data name="Bitmap_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Bitmap_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Blob0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Blob0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="BuildBitmap_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BuildBitmap-A.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Channel_Use1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Channel_Use1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Composite2Images" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Composite2Images.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Difference1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Difference1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Dither1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Dither1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edges0" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edges0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edges1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edges1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Effects1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Effects1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ExportBitmap24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExportBitmap24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -142,17 +169,56 @@
   <data name="ExportBitmap_copy_324" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ExportBitmap copy 324.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Figures1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Figures1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filters1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filters1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Crop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Crop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Mirror" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Mirror.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Move" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Move.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Polar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Polar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Resize_B" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Resize_B.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Rotate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Rotate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Scale_C" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Scale_C.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Filter_Xform_Shrink" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Filter_Xform-Shrink.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GetPixel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GetPixel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="GetPixels" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GetPixels.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Grayscale1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Grayscale1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ImageToBitmapC" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ImageToBitmapC.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ImageViewer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ImageViewer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ImageViewer_Background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ImageViewer_Background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Levels1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Levels1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Macaw_sm" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Macaw-sm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -162,6 +228,9 @@
   </data>
   <data name="ModifyLayerProperties" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ModifyLayerProperties.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MonaLisa_A" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MonaLisa_A.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Noise_Cellular" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Noise_Cellular.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -189,6 +258,18 @@
   </data>
   <data name="SetPixels" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SetPixels.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sharpen1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sharpen1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Swap_Channel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Swap_Channel.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Swap_ChannelsX" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Swap_ChannelsX.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Threshold1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Threshold1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="TraceBitmap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TraceBitmap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

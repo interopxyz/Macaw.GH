@@ -18,7 +18,7 @@ namespace Aviary.Macaw.GH.Layering
         /// Initializes a new instance of the ModifyLayer class.
         /// </summary>
         public ModifyLayer()
-          : base("Modify Layer", "Modify", "Modify Layer filters", "Aviary 1", "Image")
+          : base("Modify Layer", "Modify", "Modify Layer filters" + Environment.NewLine + "Built on the Dynamic Image Library" + Environment.NewLine + "https://dynamicimage.apphb.com/", "Aviary 1", "Image")
         {
         }
 
@@ -35,12 +35,12 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Layer", "L", "---", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager.AddGenericParameter("Layer", "L", "An Aviary Layer to modify", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Mode", "M", "The layer appearance modifier mode ", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value", "V", "---", GH_ParamAccess.item, 0.0);
+            pManager.AddNumberParameter("Value", "V", "The value of the modifier's parameter, when available", GH_ParamAccess.item, 0.0);
             pManager[2].Optional = true;
-            pManager.AddColourParameter("Color", "C", "---", GH_ParamAccess.item, Color.Black);
+            pManager.AddColourParameter("Color", "C", "Color parameter for select modifiers", GH_ParamAccess.item, Color.Black);
             pManager[3].Optional = true;
             
             Param_Integer param = (Param_Integer)pManager[1];

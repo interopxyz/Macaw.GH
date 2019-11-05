@@ -17,7 +17,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Resize class.
         /// </summary>
         public Resize()
-          : base("Resize Image", "Resize", "Description", "Aviary 1", "Image")
+          : base("Resize Image", "Resize", "Resize an image to a specific width and height" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
 
         {
         }
@@ -98,7 +98,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Resize_B;
             }
         }
 

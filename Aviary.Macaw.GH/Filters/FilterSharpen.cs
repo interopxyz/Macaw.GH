@@ -15,13 +15,13 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterSharpen : GH_Component
     {
-        private enum FilterModes { Adaptive, Conservative, Mean, Median, Gaussian, HighBoost, Simple }
+        private enum FilterModes { Adaptive, Conservative, Median, Gaussian, HighBoost, Mean, Simple }
 
         /// <summary>
         /// Initializes a new instance of the FilterSharpen class.
         /// </summary>
         public FilterSharpen()
-          : base("Filter Sharpen", "Nickname", "Description", "Aviary 1", "Image")
+          : base("Filter Sharpen", "Sharpen", "Apply sharpen filters to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -41,9 +41,9 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Value A", "A", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[2].Optional = true;
-            pManager.AddIntegerParameter("Value B", "B", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[3].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -86,41 +86,69 @@ namespace Aviary.Macaw.GH.Filters
 
             Filter filter = new Filter();
 
+            int[] indices = new int[] { 2, 3 };
+
             switch ((FilterModes)mode)
             {
                 case FilterModes.Adaptive:
+                    ClearParameters(indices);
                     filter = new Adaptive();
                     image.Filters.Add(new Adaptive());
                     break;
                 case FilterModes.Conservative:
+                    ClearParameters(indices);
                     filter = new Conservative();
                     image.Filters.Add(new Conservative());
                     break;
+                case FilterModes.Median:
+                    ClearParameters(indices);
+                    filter = new Median();
+                    image.Filters.Add(new Median());
+                    break;
                 case FilterModes.Gaussian:
+                    SetParameter(2, "D", "Divisor", "Division factor");
+                    SetParameter(3, "T", "Threshold", "Threshold weighted sum");
                     filter = new Gaussian(numValA,numValB);
                     image.Filters.Add(new Gaussian(numValA, numValB));
                     break;
                 case FilterModes.HighBoost:
+                    SetParameter(2, "D", "Divisor", "Division factor");
+                    SetParameter(3, "T", "Threshold", "Threshold weighted sum");
                     filter = new HighBoost(numValA, numValB);
                     image.Filters.Add(new HighBoost(numValA, numValB));
                     break;
                 case FilterModes.Mean:
+                    SetParameter(2, "D", "Divisor", "Division factor");
+                    SetParameter(3, "T", "Threshold", "Threshold weighted sum");
                     filter = new Mean(numValA, numValB);
                     image.Filters.Add(new Mean(numValA, numValB));
                     break;
-                case FilterModes.Median:
-                    filter = new Median();
-                    image.Filters.Add(new Median());
-                    break;
                 case FilterModes.Simple:
-                    filter = new Simple((int)numValA, (int)numValB);
-                    image.Filters.Add(new Simple((int)numValA, (int)numValB));
+                    SetParameter(2, "D", "Divisor", "Division factor");
+                    SetParameter(3, "T", "Threshold", "Threshold weighted sum");
+                    filter = new Simple(numValA, numValB);
+                    image.Filters.Add(new Simple(numValA, numValB));
                     break;
             }
 
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void ClearParameters(int[] indices)
+        {
+            foreach (int i in indices)
+            {
+                SetParameter(i);
+            }
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>
@@ -132,7 +160,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Sharpen1;
             }
         }
 

@@ -73,9 +73,29 @@ namespace Aviary.Macaw.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Adjust1 {
+            get {
+                object obj = ResourceManager.GetObject("Adjust1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Aviary_Logo_sm {
             get {
                 object obj = ResourceManager.GetObject("Aviary_Logo_sm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Base {
+            get {
+                object obj = ResourceManager.GetObject("Base", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,6 +123,16 @@ namespace Aviary.Macaw.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Blob0 {
+            get {
+                object obj = ResourceManager.GetObject("Blob0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BuildBitmap_A {
             get {
                 object obj = ResourceManager.GetObject("BuildBitmap_A", resourceCulture);
@@ -113,9 +143,69 @@ namespace Aviary.Macaw.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Channel_Use1 {
+            get {
+                object obj = ResourceManager.GetObject("Channel_Use1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Composite2Images {
             get {
                 object obj = ResourceManager.GetObject("Composite2Images", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Difference1 {
+            get {
+                object obj = ResourceManager.GetObject("Difference1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dither1 {
+            get {
+                object obj = ResourceManager.GetObject("Dither1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Edges0 {
+            get {
+                object obj = ResourceManager.GetObject("Edges0", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Edges1 {
+            get {
+                object obj = ResourceManager.GetObject("Edges1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Effects1 {
+            get {
+                object obj = ResourceManager.GetObject("Effects1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,6 +233,106 @@ namespace Aviary.Macaw.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Figures1 {
+            get {
+                object obj = ResourceManager.GetObject("Figures1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Crop {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Crop", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Mirror {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Mirror", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Move {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Move", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Polar {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Polar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Resize_B {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Resize_B", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Rotate {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Rotate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Scale_C {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Scale_C", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filter_Xform_Shrink {
+            get {
+                object obj = ResourceManager.GetObject("Filter_Xform_Shrink", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Filters1 {
+            get {
+                object obj = ResourceManager.GetObject("Filters1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap GetPixel {
             get {
                 object obj = ResourceManager.GetObject("GetPixel", resourceCulture);
@@ -163,6 +353,26 @@ namespace Aviary.Macaw.GH.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Grayscale1 {
+            get {
+                object obj = ResourceManager.GetObject("Grayscale1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ImageToBitmapC {
+            get {
+                object obj = ResourceManager.GetObject("ImageToBitmapC", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ImageViewer {
             get {
                 object obj = ResourceManager.GetObject("ImageViewer", resourceCulture);
@@ -176,6 +386,16 @@ namespace Aviary.Macaw.GH.Properties {
         internal static System.Drawing.Bitmap ImageViewer_Background {
             get {
                 object obj = ResourceManager.GetObject("ImageViewer_Background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Levels1 {
+            get {
+                object obj = ResourceManager.GetObject("Levels1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +426,16 @@ namespace Aviary.Macaw.GH.Properties {
         internal static System.Drawing.Bitmap ModifyLayerProperties {
             get {
                 object obj = ResourceManager.GetObject("ModifyLayerProperties", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MonaLisa_A {
+            get {
+                object obj = ResourceManager.GetObject("MonaLisa_A", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -296,6 +526,46 @@ namespace Aviary.Macaw.GH.Properties {
         internal static System.Drawing.Bitmap SetPixels {
             get {
                 object obj = ResourceManager.GetObject("SetPixels", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sharpen1 {
+            get {
+                object obj = ResourceManager.GetObject("Sharpen1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Swap_Channel {
+            get {
+                object obj = ResourceManager.GetObject("Swap_Channel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Swap_ChannelsX {
+            get {
+                object obj = ResourceManager.GetObject("Swap_ChannelsX", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Threshold1 {
+            get {
+                object obj = ResourceManager.GetObject("Threshold1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -34,7 +34,7 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Drawing", "D", "An Aviary drawing object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary image or windows bitmap", GH_ParamAccess.item);
             pManager.AddTextParameter("Path", "P", "Set the filepath", GH_ParamAccess.item);
             pManager[1].Optional = true;
             pManager.AddTextParameter("Name", "N", "Set the filename (no extension)", GH_ParamAccess.item);

@@ -16,7 +16,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Move class.
         /// </summary>
         public Move()
-          : base("Move", "Move Image", "Description", "Aviary 1", "Image")
+          : base("Move Image", "Move", "Move an image by a translation vector" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -66,6 +66,7 @@ namespace Aviary.Macaw.GH.Transform
 
             Color color = Color.Black;
             DA.GetData(2, ref color);
+            point.Y = -point.Y;
 
             Filter filter = new Af.Move(color,point.ToDrawingPoint());
             image.Filters.Add(new Af.Move( color, point.ToDrawingPoint()));
@@ -85,7 +86,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Move;
             }
         }
 

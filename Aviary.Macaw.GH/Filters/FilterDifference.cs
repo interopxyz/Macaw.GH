@@ -14,12 +14,12 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterDifference : GH_Component
     {
-        private enum FilterModes { Add, Subtract, Multiply, Divide, Euclidean, FlatField, Intersect, Merge, Morph, MoveTowards, Simple, StereoAnaglyph}
+        private enum FilterModes { Add, Subtract, Multiply, Divide, Euclidean, FlatField, Intersect, Merge, Morph, MoveTowards, Simple}
         /// <summary>
         /// Initializes a new instance of the Filter class.
         /// </summary>
         public FilterDifference()
-          : base("Filter Difference", "Difference", "Description", "Aviary 1", "Image")
+          : base("Filter Difference", "Difference", "Compare the difference between two images" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -75,12 +75,9 @@ namespace Aviary.Macaw.GH.Filters
             DA.GetData(1, ref mode);
 
             IGH_Goo gooA = null;
-            Image imageA = new Image();
-            if (!DA.GetData(2, ref gooA)) return;
-            if (!goo.TryGetImage(ref imageA)) return;
-
-            Bitmap overlay = imageA.GetFilteredBitmap();
-
+            Bitmap overlay = new Bitmap(100, 100);
+            if (DA.GetData(2, ref gooA)) if (goo.TryGetBitmap(ref overlay)) ;
+            
             double numVal = 1.0;
             DA.GetData(3, ref numVal);
 
@@ -148,7 +145,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Difference1;
             }
         }
 

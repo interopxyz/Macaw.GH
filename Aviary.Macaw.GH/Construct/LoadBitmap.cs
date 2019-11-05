@@ -12,7 +12,7 @@ namespace Aviary.Macaw.GH.Construct
         /// Initializes a new instance of the LoadBitmap class.
         /// </summary>
         public LoadBitmap()
-          : base("Load Image", "Bmp", "Create an Image from a bitmap filepath", "Aviary 1", "Image")
+          : base("Load Image", "Bmp", "Create an Image from a filepath to a bitmap.", "Aviary 1", "Image")
         {
         }
 
@@ -29,7 +29,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddTextParameter("FilePath", "F", "", GH_ParamAccess.item);
+            pManager.AddTextParameter("FilePath", "F", "Path to a valid bitmap file" + Environment.NewLine + "(.jpeg, .bmp, .png, .gif, .tga, .tiff)", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image object", GH_ParamAccess.item);
         }
 
         /// <summary>

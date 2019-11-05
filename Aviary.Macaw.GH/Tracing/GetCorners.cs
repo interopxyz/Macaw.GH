@@ -17,7 +17,7 @@ namespace Aviary.Macaw.GH.Tracing
         /// Initializes a new instance of the GetCorners class.
         /// </summary>
         public GetCorners()
-          : base("Bitmap Corners", "Corners", "Get blob corner points from a bitmap", "Aviary 1", "Image")
+          : base("Bitmap Corners", "Corners", "Get blob corner points from a bitmap" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 

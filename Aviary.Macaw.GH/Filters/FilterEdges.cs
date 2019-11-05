@@ -12,13 +12,13 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterEdges : GH_Component
     {
-        private enum FilterModes { Canny, Difference, Homogeneity, Kirsch, Robinson, Sobel,Compass }
+        private enum FilterModes { Difference, Homogeneity, Kirsch, Robinson, Sobel, Canny}
 
         /// <summary>
         /// Initializes a new instance of the FilterEdges class.
         /// </summary>
         public FilterEdges()
-          : base("Filter Edges", "Edges", "Description", "Aviary 1", "Image")
+          : base("Filter Edges", "Edges", "Apply edge detection filters to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -92,29 +92,40 @@ namespace Aviary.Macaw.GH.Filters
 
             Filter filter = new Filter();
 
+            int[] indices = new int[] { 2, 3, 4, 5 };
+
             switch ((FilterModes)mode)
             {
                 case FilterModes.Canny:
+                    SetParameter(2, "X", "Sigma", "Gaussian sigma");
+                    SetParameter(3, "S", "Size", "Gaussian size");
+                    SetParameter(4, "L", "Low Threshold", "High threshold value used for hysteresis");
+                    SetParameter(5, "H", "High Threshold", "Low threshold value used for hysteresis");
                     filter = new Canny(numValA, numValB, numValC, numValD);
                     image.Filters.Add(new Canny());
                     break;
                 case FilterModes.Difference:
+                    ClearParameter(indices);
                     filter = new Difference();
                     image.Filters.Add(new Difference());
                     break;
                 case FilterModes.Homogeneity:
+                    ClearParameter(indices);
                     filter = new Homogeneity();
                     image.Filters.Add(new Homogeneity());
                     break;
                 case FilterModes.Kirsch:
+                    ClearParameter(indices);
                     filter = new Kirsch();
                     image.Filters.Add(new Kirsch());
                     break;
                 case FilterModes.Robinson:
+                    ClearParameter(indices);
                     filter = new Robinson();
                     image.Filters.Add(new Robinson());
                     break;
                 case FilterModes.Sobel:
+                    ClearParameter(indices);
                     filter = new Sobel();
                     image.Filters.Add(new Sobel());
                     break;
@@ -123,6 +134,21 @@ namespace Aviary.Macaw.GH.Filters
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void ClearParameter(int[] indices)
+        {
+            foreach(int i in indices)
+            {
+                SetParameter(i);
+            }
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>
@@ -134,7 +160,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Edges1;
             }
         }
 

@@ -18,7 +18,7 @@ namespace Aviary.Macaw.GH.Layering
         /// Initializes a new instance of the XformLayer class.
         /// </summary>
         public XformLayer()
-          : base("Xform Layer", "Xform", "Description", "Aviary 1", "Image")
+          : base("Xform Layer", "Xform", "Apply transformations to a layer" + Environment.NewLine + "Built on the Dynamic Image Library" + Environment.NewLine + "https://dynamicimage.apphb.com/", "Aviary 1", "Image")
         {
         }
 
@@ -38,13 +38,13 @@ namespace Aviary.Macaw.GH.Layering
             pManager.AddGenericParameter("Layer", "L", "---", GH_ParamAccess.item);
             pManager.AddVectorParameter("Translation Vector", "V", "---", GH_ParamAccess.item, new Vector3d());
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Angle", "A", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Angle", "A", "The rotation angle of the Image in the layer", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
-            pManager.AddIntegerParameter("Width", "W", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Width", "W", "A new pixel width of the image", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
-            pManager.AddIntegerParameter("Height", "H", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Height", "H", "A new pixel height of the image", GH_ParamAccess.item, 0);
             pManager[4].Optional = true;
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Mode", "M", "Fitting modes for resize", GH_ParamAccess.item, 0);
             pManager[5].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[5];

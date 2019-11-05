@@ -17,7 +17,7 @@ namespace Aviary.Macaw.GH.Filters
         /// Initializes a new instance of the FilterBlob class.
         /// </summary>
         public FilterBlob()
-          : base("Filter Blob", "Blob", "Description", "Aviary 1", "Image")
+          : base("Filter Blob", "Blob", "Filter out unique shape blob from an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -112,7 +112,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Blob0;
             }
         }
 

@@ -15,7 +15,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Shrink class.
         /// </summary>
         public Shrink()
-          : base("Shrink Image", "Shrink", "Description", "Aviary 1", "Image")
+          : base("Shrink Image", "Shrink", "Shrink and image by cropping out a context color" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -79,7 +79,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Shrink;
             }
         }
 

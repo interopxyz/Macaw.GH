@@ -14,7 +14,7 @@ namespace Aviary.Macaw.GH.Channels
         /// Initializes a new instance of the SwapChannels class.
         /// </summary>
         public SwapChannels()
-          : base("Swap Channels", "Swap*", "Description", "Aviary 1", "Image")
+          : base("Swap Channels", "Swap*", "Swap out channels for multiple existing channels" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -33,16 +33,16 @@ namespace Aviary.Macaw.GH.Channels
         {
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
 
-            pManager.AddIntegerParameter("Alpha", "A", "", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Alpha", "A", "Select a channel to replace the Alpha channel", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
 
-            pManager.AddIntegerParameter("Red", "R", "", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Red", "R", "Select a channel to replace the Red channel", GH_ParamAccess.item, 1);
             pManager[2].Optional = true;
 
-            pManager.AddIntegerParameter("Green", "G", "", GH_ParamAccess.item, 2);
+            pManager.AddIntegerParameter("Green", "G", "Select a channel to replace the Green channel", GH_ParamAccess.item, 2);
             pManager[3].Optional = true;
 
-            pManager.AddIntegerParameter("Blue", "B", "", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("Blue", "B", "Select a channel to replace the Blue channel", GH_ParamAccess.item, 3);
             pManager[4].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[1];
@@ -115,7 +115,7 @@ namespace Aviary.Macaw.GH.Channels
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Swap_ChannelsX;
             }
         }
 

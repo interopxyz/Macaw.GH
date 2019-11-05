@@ -16,7 +16,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Mirror class.
         /// </summary>
         public Mirror()
-          : base("Mirror Image", "Mirror", "Description", "Aviary 1", "Image")
+          : base("Mirror Image", "Mirror", "Mirror an image about x and y axis" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
 
         {
         }
@@ -35,9 +35,9 @@ namespace Aviary.Macaw.GH.Transform
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Flip X", "X", "", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Flip X", "X", "Flips the image about the X axis", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
-            pManager.AddBooleanParameter("Flip Y", "Y", "", GH_ParamAccess.item, false);
+            pManager.AddBooleanParameter("Flip Y", "Y", "Flips the image about the Y axis", GH_ParamAccess.item, false);
             pManager[2].Optional = true;
         }
 
@@ -68,8 +68,8 @@ namespace Aviary.Macaw.GH.Transform
             bool flipY = false;
             DA.GetData(2, ref flipY);
 
-            Filter filter = new Af.Mirror(flipX, flipY);
-            image.Filters.Add(new Af.Mirror(flipX, flipY));
+            Filter filter = new Af.Mirror(flipY, flipX);
+            image.Filters.Add(new Af.Mirror(flipY, flipX));
 
 
             DA.SetData(0, image);
@@ -86,7 +86,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Mirror;
             }
         }
 

@@ -15,7 +15,7 @@ namespace Aviary.Macaw.GH.Layering
         /// Initializes a new instance of the CompositeLayers class.
         /// </summary>
         public MergeLayers()
-          : base("Merge Layers", "Merge", "Build multiple layers into a bitmap", "Aviary 1", "Image")
+          : base("Merge Layers", "Merge", "Build multiple layers into a bitmap" + Environment.NewLine + "Built on the Dynamic Image Library" + Environment.NewLine + "https://dynamicimage.apphb.com/", "Aviary 1", "Image")
         {
         }
 
@@ -40,7 +40,7 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "The resultant bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The resulting Aviary Image", GH_ParamAccess.item);
         }
 
         /// <summary>

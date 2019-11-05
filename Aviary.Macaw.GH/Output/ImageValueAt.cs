@@ -17,7 +17,7 @@ namespace Aviary.Macaw.GH.Output
         /// Initializes a new instance of the ImageValueAt class.
         /// </summary>
         public ImageValueAt()
-          : base("Image Value At", "Value At", "Get a requested value at a specific pixel location", "Aviary 1", "Image")
+          : base("Image Value At", "Value At", "Get a requested value at a specific pixel location" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 

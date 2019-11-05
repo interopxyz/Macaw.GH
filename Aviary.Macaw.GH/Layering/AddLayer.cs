@@ -16,7 +16,7 @@ namespace Aviary.Macaw.GH.Layering
         /// Initializes a new instance of the SetLayer class.
         /// </summary>
         public AddLayer()
-          : base("Add Layer", "Layer", "Set layer image and properties ", "Aviary 1", "Image")
+          : base("Add Layer", "Layer", "Set layer image and properties" + Environment.NewLine + "Built on the Dynamic Image Library" + Environment.NewLine + "https://dynamicimage.apphb.com/", "Aviary 1", "Image")
         {
         }
 
@@ -33,11 +33,11 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Mask Image", "X", "The Layer mask", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The Layer Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Mask Image", "X", "An optional Aviary Image or Bitmap opacity mask", GH_ParamAccess.item);
             pManager[1].Optional = true;
 
-            pManager.AddIntegerParameter("Blend Mode", "M", "", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Blend Mode", "M", "The transparency blend mode.", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
 
             pManager.AddNumberParameter("Opacity", "O", "An opacity value from 0-1", GH_ParamAccess.item, 1.0);

@@ -16,7 +16,7 @@ namespace Aviary.Macaw.GH.Construct
         /// Initializes a new instance of the CompositeImages class.
         /// </summary>
         public CompositeImages()
-          : base("Composite Images", "Composite", "Description", "Aviary 1", "Image")
+          : base("Composite Images", "Composite", "Quick composite two images with a mask and blend mode" + Environment.NewLine + "Built on the Dynamic Image Library" + Environment.NewLine + "https://dynamicimage.apphb.com/", "Aviary 1", "Image")
         {
         }
 
@@ -33,12 +33,12 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Top Image", "T", "The bottom Bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bottom Image", "B", "The bottom Bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Mask Image", "X", "The Layer mask", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Top Image", "T", "The top Image or Bitmap.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bottom Image", "B", "The bottom Image or Bitmap.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Mask Image", "X", "An optional layer mask Image or Bitmap.", GH_ParamAccess.item);
             pManager[2].Optional = true;
 
-            pManager.AddIntegerParameter("Blend Mode", "M", "", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Blend Mode", "M", "The transparency blend mode applied to the top image.", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
 
             pManager.AddNumberParameter("Opacity", "O", "An opacity value from 0-1", GH_ParamAccess.item, 1.0);
@@ -74,14 +74,21 @@ namespace Aviary.Macaw.GH.Construct
 
             IGH_Goo gooT = null;
             Bitmap bottom = new Bitmap(100, 100);
-            if (!DA.GetData(1, ref goo)) return;
-            if (!goo.TryGetBitmap(ref bottom)) return;
+            if (!DA.GetData(1, ref gooT)) return;
+            if (!gooT.TryGetBitmap(ref bottom)) return;
 
             Mp.Layer bottomLayer = new Mp.Layer(bottom);
 
             IGH_Goo gooM = null;
+            Image img = new Image();
+            bool hasMask = false;
             Bitmap mask = new Bitmap(100, 100);
-            if (DA.GetData(2, ref gooM)) if (goo.TryGetBitmap(ref mask)) topLayer.Mask = mask;
+            if (DA.GetData(2, ref gooM)) if (gooM.TryGetImage(ref img))
+                {
+                    hasMask = true;
+                    img.SwapChannel(Image.Channels.Luminance, Image.Channels.Alpha);
+                    mask = img.Bitmap;
+                }
 
             int blendMode = 0;
             DA.GetData(3, ref blendMode);
@@ -91,6 +98,7 @@ namespace Aviary.Macaw.GH.Construct
 
             topLayer.BlendMode = (Mp.Layer.BlendModes)blendMode;
             topLayer.Opacity = 100 * opacity;
+            if (hasMask) topLayer.Mask = mask;
 
             Mp.Composition composition = new Mp.Composition();
             composition.Layers.Add(bottomLayer);

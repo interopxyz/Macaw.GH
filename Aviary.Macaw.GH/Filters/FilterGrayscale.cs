@@ -12,13 +12,13 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterGrayscale : GH_Component
     {
-        private enum FilterModes { Simple, Y, RMY, BT709 }
+        private enum FilterModes { Y, RMY, BT709, Simple }
 
         /// <summary>
         /// Initializes a new instance of the FilterGrayscale class.
         /// </summary>
         public FilterGrayscale()
-          : base("Filter Grayscale", "Grayscale", "Description", "Aviary 1", "Image")
+          : base("Filter Grayscale", "Grayscale", "Apply grayscale filters to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -38,11 +38,11 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Red", "R", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 0.125);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Green", "G", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 0.125);
             pManager[3].Optional = true;
-            pManager.AddNumberParameter("Blue", "B", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 0.125);
             pManager[4].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -87,21 +87,29 @@ namespace Aviary.Macaw.GH.Filters
 
             Filter filter = new Filter();
 
+            int[] indices = new int[] { 2, 3, 4 };
+
             switch ((FilterModes)mode)
             {
                 case FilterModes.BT709:
+                    ClearParameter(indices);
                     filter = new GrayscaleBT709();
                     image.Filters.Add(new GrayscaleBT709());
                     break;
                 case FilterModes.RMY:
+                    ClearParameter(indices);
                     filter = new GrayscaleRMY();
                     image.Filters.Add(new GrayscaleRMY());
                     break;
                 case FilterModes.Y:
+                    ClearParameter(indices);
                     filter = new GrayscaleY();
                     image.Filters.Add(new GrayscaleY());
                     break;
                 case FilterModes.Simple:
+                    SetParameter(2, "R", "Red", "The Red coefficient");
+                    SetParameter(3, "G", "Green", "The Green coefficient");
+                    SetParameter(4, "B", "Blue", "The Blue coefficient");
                     filter = new Simple(numValA, numValB, numValC);
                     image.Filters.Add(new Simple(numValA, numValB, numValC));
                     break;
@@ -110,6 +118,21 @@ namespace Aviary.Macaw.GH.Filters
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void ClearParameter(int[] indices)
+        {
+            foreach (int i in indices)
+            {
+                SetParameter(i);
+            }
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>
@@ -121,7 +144,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Grayscale1;
             }
         }
 

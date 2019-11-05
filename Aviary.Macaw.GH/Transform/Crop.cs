@@ -16,7 +16,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Crop class.
         /// </summary>
         public Crop()
-          : base("Crop Image", "Crop", "Description", "Aviary 1", "Image")
+          : base("Crop Image", "Crop", "Crop a bitmap with a rectangular region" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -72,8 +72,8 @@ namespace Aviary.Macaw.GH.Transform
             Color color = Color.Black;
             DA.GetData(3, ref color);
 
-            Filter filter = new Af.Crop(original,color,region.ToDrawingRect());
-            image.Filters.Add(new Af.Crop(original, color, region.ToDrawingRect()));
+            Filter filter = new Af.Crop(original,color,region.ToDrawingRect(image.Bitmap.Height));
+            image.Filters.Add(new Af.Crop(original, color, region.ToDrawingRect(image.Bitmap.Height)));
 
 
             DA.SetData(0, image);
@@ -90,7 +90,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Crop;
             }
         }
 

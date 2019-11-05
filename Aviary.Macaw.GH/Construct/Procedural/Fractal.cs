@@ -15,7 +15,7 @@ namespace Aviary.Macaw.GH.Procedural
         /// Initializes a new instance of the Fractal class.
         /// </summary>
         public Fractal()
-          : base("Fractal", "Fractal", "Description", "Aviary 1", "Image")
+          : base("Fractal", "Apply a fractal modifier to an Aviary Cellular or Noise system" + Environment.NewLine + "Built on Auburns' FastNoise " + Environment.NewLine + "https://github.com/Auburns/FastNoise", "Description", "Aviary 1", "Image")
         {
         }
 
@@ -34,7 +34,7 @@ namespace Aviary.Macaw.GH.Procedural
         {
             pManager.AddGenericParameter("Noise", "N", "A Noise object", GH_ParamAccess.item);
             pManager[0].Optional = true;
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Mode", "M", "The noise fractal mode", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
             pManager.AddIntegerParameter("Octaves", "O", "---", GH_ParamAccess.item, 5);
             pManager[2].Optional = true;

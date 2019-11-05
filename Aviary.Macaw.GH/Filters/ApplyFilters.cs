@@ -13,7 +13,7 @@ namespace Aviary.Macaw.GH.Filters
         /// Initializes a new instance of the ApplyFilters class.
         /// </summary>
         public ApplyFilters()
-          : base("Apply Filters", "Apply", "Description", "Aviary 1", "Image")
+          : base("Apply Filters", "Apply", "Apply filters to the image's bitmap" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -30,7 +30,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "The Image or Bitmap for the layer", GH_ParamAccess.item);
             pManager.AddBooleanParameter("Clear Filters", "C", "", GH_ParamAccess.item, false);
             pManager[1].Optional = true;
             pManager.AddIntegerParameter("Loops", "L", "", GH_ParamAccess.item, 0);
@@ -73,7 +73,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Base;
             }
         }
 

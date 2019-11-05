@@ -12,13 +12,13 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterThreshold : GH_Component
     {
-        private enum FilterModes { Bradley, Iterative, Nilback, Otsu, Sauvola, SIS, WolfJolion}
+        private enum FilterModes { Otsu, SIS, Bradley, Iterative, Nilback, Sauvola, WolfJolion}
 
         /// <summary>
         /// Initializes a new instance of the MyComponent1 class.
         /// </summary>
         public FilterThreshold()
-          : base("Filter Threshold", "Threshold", "Description", "Aviary 1", "Image")
+          : base("Filter Threshold", "Threshold", "Apply threshold detection filters to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -38,11 +38,11 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value A", "A", "---", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 0.5);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Value B", "B", "---", GH_ParamAccess.item, 1);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 0.5);
             pManager[3].Optional = true;
-            pManager.AddIntegerParameter("Value C", "C", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[4].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -76,10 +76,10 @@ namespace Aviary.Macaw.GH.Filters
             int mode = 0;
             DA.GetData(1, ref mode);
 
-            double numValA = 1.0;
+            double numValA = 0.5;
             DA.GetData(2, ref numValA);
 
-            double numValB = 1;
+            double numValB = 0.5;
             DA.GetData(3, ref numValB);
 
             int numValC = 1;
@@ -87,33 +87,52 @@ namespace Aviary.Macaw.GH.Filters
 
             Filter filter = new Filter();
 
+            int[] indices = new int[] { 2, 3, 4 };
+
             switch ((FilterModes)mode)
             {
+                case FilterModes.Otsu:
+                    filter = new Otsu();
+                    ClearParameters(indices);
+                    image.Filters.Add(new Otsu());
+                    break;
+                case FilterModes.SIS:
+                    filter = new SIS();
+                    ClearParameters(indices);
+                    image.Filters.Add(new SIS());
+                    break;
                 case FilterModes.Bradley:
+                    SetParameter(2, "B", "Brightness", "Brightness difference limit");
+                    SetParameter(3, "S", "Size", "Window size");
+                    SetParameter(4);
                     filter = new Bradley(numValA,(int)numValB);
                     image.Filters.Add(new Bradley(numValA, (int)numValB));
                     break;
                 case FilterModes.Iterative:
-                    filter = new Iterative((int)numValA, (int)numValB);
-                    image.Filters.Add(new Iterative((int)numValA, (int)numValB));
+                    SetParameter(2, "M", "Minimum", "Minimum error value");
+                    SetParameter(3, "T", "Threshold", "Threshold value");
+                    SetParameter(4);
+                    filter = new Iterative(numValA, numValB);
+                    image.Filters.Add(new Iterative(numValA, numValB));
                     break;
                 case FilterModes.Nilback:
+                    SetParameter(2, "C", "C", "Mean offset C");
+                    SetParameter(3, "K", "K", "Parameter K");
+                    SetParameter(4, "R", "Radius", "Filter convolution radius");
                     filter = new Nilback(numValA, numValB, numValC);
                     image.Filters.Add(new Nilback(numValA, numValB,numValC));
                     break;
-                case FilterModes.Otsu:
-                    filter = new Otsu();
-                    image.Filters.Add(new Otsu());
-                    break;
                 case FilterModes.Sauvola:
+                    SetParameter(2, "R", "R", "Dynamic range");
+                    SetParameter(3, "K", "K", "Parameter K");
+                    SetParameter(4, "R", "Radius", "Filter convolution radius");
                     filter = new Sauvola(numValA, numValB,numValC);
                     image.Filters.Add(new Sauvola(numValA, numValB, numValC));
                     break;
-                case FilterModes.SIS:
-                    filter = new SIS();
-                    image.Filters.Add(new SIS());
-                    break;
                 case FilterModes.WolfJolion:
+                    SetParameter(2, "R", "R", "Dynamic range");
+                    SetParameter(3, "K", "K", "Parameter K");
+                    SetParameter(4, "R", "Radius", "Filter convolution radius");
                     filter = new WolfJolion(numValA, numValB,numValC);
                     image.Filters.Add(new WolfJolion(numValA, numValB, numValC));
                     break;
@@ -122,6 +141,21 @@ namespace Aviary.Macaw.GH.Filters
             DA.SetData(0, image);
             DA.SetData(1, image.GetFilteredBitmap());
             DA.SetData(2, filter);
+        }
+
+        protected void ClearParameters(int[] indices)
+        {
+            foreach (int i in indices)
+            {
+                SetParameter(i);
+            }
+        }
+
+        protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")
+        {
+            Params.Input[index].NickName = nickname;
+            Params.Input[index].Name = name;
+            Params.Input[index].Description = description;
         }
 
         /// <summary>
@@ -133,7 +167,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Threshold1;
             }
         }
 

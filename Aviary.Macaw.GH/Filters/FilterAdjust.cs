@@ -19,7 +19,7 @@ namespace Aviary.Macaw.GH.Filters
         /// Initializes a new instance of the AdjustFilters class.
         /// </summary>
         public FilterAdjust()
-          : base("Adjust Filters", "Adjust", "Description", "Aviary 1", "Image")
+          : base("Filter Adjust", "Adjust", "Apply bitmap adjustment filters to an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -165,7 +165,7 @@ namespace Aviary.Macaw.GH.Filters
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Adjust1;
             }
         }
 

@@ -30,7 +30,7 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "A bitmap object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bitmap", "B", "An Aviary Image or Bitmap object.", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -38,10 +38,10 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddIntegerParameter("Width", "W", "The width of the image in pixels", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Height", "H", "The height of the image in pixels", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("DPI X", "X", "The horizontal dpi", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("DPI Y", "Y", "The vertical dpi", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Width", "W", "The width of the Image or Bitmap in pixels", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Height", "H", "The height of the Image or Bitmap in pixels", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("DPI X", "X", "The horizontal DPI", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("DPI Y", "Y", "The vertical DPI", GH_ParamAccess.item);
         }
 
         /// <summary>

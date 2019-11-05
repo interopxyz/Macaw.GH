@@ -69,7 +69,7 @@ namespace Aviary.Macaw.GH
                     Image image = new Image();
                     if (goo.CastTo<Image>(out image))
                     {
-                        bitmap = image.Bitmap;
+                        bitmap = image.GetFilteredBitmap();
                     }
 
                     else

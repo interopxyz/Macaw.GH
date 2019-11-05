@@ -17,7 +17,7 @@ namespace Aviary.Macaw.GH.Transform
         /// Initializes a new instance of the Rotate class.
         /// </summary>
         public Rotate()
-          : base("Rotate Image", "Rotate", "Description", "Aviary 1", "Image")
+          : base("Rotate Image", "Rotate", "Rotate an image about its center" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -101,7 +101,7 @@ namespace Aviary.Macaw.GH.Transform
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.Filter_Xform_Rotate;
             }
         }
 

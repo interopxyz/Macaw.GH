@@ -29,7 +29,7 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "A Macaw Image Object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "A Macaw Image Object" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Aviary.Macaw.GH.Output
             {
                 //You can add image files to your project resources and access them like this:
                 // return Resources.IconForThisComponent;
-                return null;
+                return Properties.Resources.ImageToBitmapC;
             }
         }
 
