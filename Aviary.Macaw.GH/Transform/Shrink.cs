@@ -32,8 +32,8 @@ namespace Aviary.Macaw.GH.Transform
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
-            pManager.AddColourParameter("Color", "C", "", GH_ParamAccess.item,Color.Black);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddColourParameter("Color", "C", "The color to crop out from the boundary of the image.", GH_ParamAccess.item,Color.Black);
             pManager[1].Optional = true;
         }
 
@@ -42,9 +42,8 @@ namespace Aviary.Macaw.GH.Transform
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bitmap", "B", "The resulting bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Filter", "F", "The resulting filter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image with the filter added to it", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Filter", "F", "The specified Filter", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -66,8 +65,7 @@ namespace Aviary.Macaw.GH.Transform
 
 
             DA.SetData(0, image);
-            DA.SetData(1, image.GetFilteredBitmap());
-            DA.SetData(2, filter);
+            DA.SetData(1, filter);
         }
 
         /// <summary>

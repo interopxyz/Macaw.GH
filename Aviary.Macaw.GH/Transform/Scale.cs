@@ -46,9 +46,8 @@ namespace Aviary.Macaw.GH.Transform
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bitmap", "B", "The resulting bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Filter", "F", "The resulting filter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image with the filter added to it", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Filter", "F", "The specified Filter", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -76,8 +75,7 @@ namespace Aviary.Macaw.GH.Transform
             image.Filters.Add(new Af.Resize(width, height, (Af.Resize.Modes)mode));
 
             DA.SetData(0, image);
-            DA.SetData(1, image.GetFilteredBitmap());
-            DA.SetData(2, filter);
+            DA.SetData(1, filter);
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Aviary.Macaw.GH
         /// Initializes a new instance of the BitmapViewer class.
         /// </summary>
         public ImageViewer()
-          : base("Image Viewer", "Image", "Description", "Aviary 1", "Image")
+          : base("Image Viewer", "Image", "Display an Aviary Image or Bitmap in the canvas", "Aviary 1", "Image")
         {
         }
 
@@ -42,7 +42,7 @@ namespace Aviary.Macaw.GH
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager[0].Optional = true;
         }
 

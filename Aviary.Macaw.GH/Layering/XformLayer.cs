@@ -35,8 +35,8 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Layer", "L", "---", GH_ParamAccess.item);
-            pManager.AddVectorParameter("Translation Vector", "V", "---", GH_ParamAccess.item, new Vector3d());
+            pManager.AddGenericParameter("Layer", "L", "The Aviary Image Layer to transform", GH_ParamAccess.item);
+            pManager.AddVectorParameter("Translation Vector", "V", "The optional vector's [x,y] values will be used to move the layer", GH_ParamAccess.item, new Vector3d());
             pManager[1].Optional = true;
             pManager.AddIntegerParameter("Angle", "A", "The rotation angle of the Image in the layer", GH_ParamAccess.item, 0);
             pManager[2].Optional = true;
@@ -59,7 +59,7 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Layer", "L", "The modifier layer", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Layer", "L", "The modifier Aviary Image Layer", GH_ParamAccess.item);
         }
 
         /// <summary>

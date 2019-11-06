@@ -30,11 +30,9 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Image or Bitmap for the layer", GH_ParamAccess.item);
-            pManager.AddBooleanParameter("Clear Filters", "C", "", GH_ParamAccess.item, false);
+            pManager.AddGenericParameter("Image", "I", "The Aviary Image or Bitmap.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Filters", "F", "A list of filters to be applied sequentially to an image", GH_ParamAccess.list);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Loops", "L", "", GH_ParamAccess.item, 0);
-            pManager[2].Optional = true;
         }
 
         /// <summary>
@@ -42,7 +40,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image with the new layers added", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -51,17 +49,17 @@ namespace Aviary.Macaw.GH.Filters
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo goo = null;
             Image image = new Image();
-            if (!DA.GetData(0, ref image)) return;
-            Image output = new Image(image);
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.TryGetImage(ref image)) return;
 
-            int loops = 0;
-            DA.GetData(2, ref loops);
+            List<Filter> filters = new List<Filter>();
+            DA.GetDataList<Filter>(1, filters);
 
-            Bitmap bitmap = output.GetFilteredBitmap(loops);
-            
+            image.Filters.AddRange(filters);            
 
-            DA.SetData(0, new Image(bitmap));
+            DA.SetData(0, image);
         }
 
         /// <summary>

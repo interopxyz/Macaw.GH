@@ -20,7 +20,7 @@ namespace Aviary.Macaw.GH.Filters
         /// Initializes a new instance of the FiltersFilter class.
         /// </summary>
         public FilterFilter()
-          : base("Filter Filters", "Filters", "Filter out channels on an image" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
+          : base("Filter Filters", "Filters", "Filter out channels on an image" + Environment.NewLine + "Note: Not all filter modes use the additional parameter inputs." + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -37,7 +37,7 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
 
@@ -66,9 +66,8 @@ namespace Aviary.Macaw.GH.Filters
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bitmap", "B", "The resulting bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Filter", "F", "The resulting filter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image with the filter added to it", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Filter", "F", "The specified Filter", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -140,8 +139,7 @@ namespace Aviary.Macaw.GH.Filters
             }
 
             DA.SetData(0, image);
-            DA.SetData(1, image.GetFilteredBitmap());
-            DA.SetData(2, filter);
+            DA.SetData(1, filter);
         }
 
         protected void SetParameter(int index, string nickname = "-", string name = "Not Used", string description = "Parameter not used by this filter")

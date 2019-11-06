@@ -33,7 +33,7 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager.AddGenericParameter("Mask Image", "X", "An optional Aviary Image or Bitmap opacity mask", GH_ParamAccess.item);
             pManager[1].Optional = true;
 

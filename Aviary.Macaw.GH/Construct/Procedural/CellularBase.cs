@@ -34,9 +34,9 @@ namespace Aviary.Macaw.GH.Procedural
         {
             pManager.AddIntegerParameter("Seed", "S", "The seed for the noise", GH_ParamAccess.item, 1);
             pManager[0].Optional = true;
-            pManager.AddIntegerParameter("Width", "W", "The pixel width of the new Image", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("Width", "W", "The width of the new Aviary Image in pixels", GH_ParamAccess.item, 100);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Height", "H", "The pixel height of the new Image", GH_ParamAccess.item, 100);
+            pManager.AddIntegerParameter("Height", "H", "The height of the new Aviary Image in pixels", GH_ParamAccess.item, 100);
             pManager[2].Optional = true;
             pManager.AddIntegerParameter("Depth", "D", "The sample depth through the field", GH_ParamAccess.item, 1);
             pManager[3].Optional = true;

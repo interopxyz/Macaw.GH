@@ -35,8 +35,8 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Layer", "L", "An Aviary Layer to modify", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "The layer appearance modifier mode ", GH_ParamAccess.item, 0);
+            pManager.AddGenericParameter("Layer", "L", "An Aviary Image Layer to modify", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Mode", "M", "The layer modifier mode ", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
             pManager.AddNumberParameter("Value", "V", "The value of the modifier's parameter, when available", GH_ParamAccess.item, 0.0);
             pManager[2].Optional = true;
@@ -55,7 +55,7 @@ namespace Aviary.Macaw.GH.Layering
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Layer", "L", "The modifier layer", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Layer", "L", "The modifier Aviary Image Layer", GH_ParamAccess.item);
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace Aviary.Macaw.GH.Transform
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager.AddRectangleParameter("Region", "R", "", GH_ParamAccess.item, new Rectangle3d(Plane.WorldXY, 100, 100));
             pManager[1].Optional = true;
             pManager.AddBooleanParameter("Keep Original", "K", "", GH_ParamAccess.item, true);
@@ -47,9 +47,8 @@ namespace Aviary.Macaw.GH.Transform
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The resulting image", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bitmap", "B", "The resulting bitmap", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Filter", "F", "The resulting filter", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image with the filter added to it", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Filter", "F", "The specified Filter", GH_ParamAccess.item);
         }
 
         /// <summary>
@@ -77,8 +76,7 @@ namespace Aviary.Macaw.GH.Transform
 
 
             DA.SetData(0, image);
-            DA.SetData(1, image.GetFilteredBitmap());
-            DA.SetData(2, filter);
+            DA.SetData(1, filter);
         }
 
         /// <summary>

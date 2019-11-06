@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Grasshopper.Kernel;
+using Grasshopper.Kernel.Types;
 using Rhino.Geometry;
 
 namespace Aviary.Macaw.GH.Output
@@ -12,7 +13,7 @@ namespace Aviary.Macaw.GH.Output
         /// Initializes a new instance of the ImageToBitmap class.
         /// </summary>
         public ImageToBitmap()
-          : base("Image To Bitmap", "To Bmp", "Convert an Image to a Bitmap object", "Aviary 1", "Image")
+          : base("Image To Bitmap", "To Bmp", "Convert an Image to a Bitmap object" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
         }
 
@@ -29,7 +30,9 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "A Macaw Image Object" + Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Loops", "L", "Filters can be applied iterativly." + Environment.NewLine + "This parameter sets the number of loops.", GH_ParamAccess.item, 0);
+            pManager[1].Optional = true;
         }
 
         /// <summary>
@@ -46,10 +49,15 @@ namespace Aviary.Macaw.GH.Output
         /// <param name="DA">The DA object is used to retrieve from inputs and store in outputs.</param>
         protected override void SolveInstance(IGH_DataAccess DA)
         {
+            IGH_Goo goo = null;
             Image image = new Image();
-            if (!DA.GetData(0, ref image)) return;
+            if (!DA.GetData(0, ref goo)) return;
+            if (!goo.TryGetImage(ref image)) return;
+            
+            int loops = 0;
+            DA.GetData(1, ref loops);
 
-            DA.SetData(0, image.Bitmap);
+            DA.SetData(0, image.GetFilteredBitmap(loops));
         }
 
         /// <summary>

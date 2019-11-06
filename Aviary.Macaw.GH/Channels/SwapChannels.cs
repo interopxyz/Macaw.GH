@@ -31,18 +31,18 @@ namespace Aviary.Macaw.GH.Channels
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
 
-            pManager.AddIntegerParameter("Alpha", "A", "Select a channel to replace the Alpha channel", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Alpha", "A", "Replacement for Alpha channel", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
 
-            pManager.AddIntegerParameter("Red", "R", "Select a channel to replace the Red channel", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Red", "R", "Replacement for Red channel", GH_ParamAccess.item, 1);
             pManager[2].Optional = true;
 
-            pManager.AddIntegerParameter("Green", "G", "Select a channel to replace the Green channel", GH_ParamAccess.item, 2);
+            pManager.AddIntegerParameter("Green", "G", "Replacement for Green channel", GH_ParamAccess.item, 2);
             pManager[3].Optional = true;
 
-            pManager.AddIntegerParameter("Blue", "B", "Select a channel to replace the Blue channel", GH_ParamAccess.item, 3);
+            pManager.AddIntegerParameter("Blue", "B", "Replacement for Blue channel", GH_ParamAccess.item, 3);
             pManager[4].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[1];

@@ -33,12 +33,12 @@ namespace Aviary.Macaw.GH.Construct
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Top Image", "T", "The top Image or Bitmap.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Bottom Image", "B", "The bottom Image or Bitmap.", GH_ParamAccess.item);
-            pManager.AddGenericParameter("Mask Image", "X", "An optional layer mask Image or Bitmap.", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Top Image", "T", "The top Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Bottom Image", "B", "The bottom Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Mask Image", "X", "An optional layer mask Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager[2].Optional = true;
 
-            pManager.AddIntegerParameter("Blend Mode", "M", "The transparency blend mode applied to the top image.", GH_ParamAccess.item, 0);
+            pManager.AddIntegerParameter("Blend Mode", "M", "The transparency blend mode applied to the top image", GH_ParamAccess.item, 0);
             pManager[3].Optional = true;
 
             pManager.AddNumberParameter("Opacity", "O", "An opacity value from 0-1", GH_ParamAccess.item, 1.0);

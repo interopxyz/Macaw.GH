@@ -34,7 +34,7 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Bitmap", "B", "A bitmap object", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Modes", "M", "The value return mode", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
 

@@ -33,7 +33,7 @@ namespace Aviary.Macaw.GH.Channels
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "The Layer Bitmap", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             
             pManager.AddIntegerParameter("Source", "S", "The channel to be replaced", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
