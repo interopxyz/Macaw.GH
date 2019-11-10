@@ -13,7 +13,6 @@ namespace Aviary.Macaw.GH.Filters
 {
     public class FilterAdjust : GH_Component
     {
-
         private enum FilterModes { Invert, GrayWorld, Stretch, Histogram, WhitePatch, RGChromacity, Sepia, Brightness, Contrast, Gamma,  Hue, Saturation}
         /// <summary>
         /// Initializes a new instance of the AdjustFilters class.
@@ -21,6 +20,7 @@ namespace Aviary.Macaw.GH.Filters
         public FilterAdjust()
           : base("Filter Adjust", "Adjust", "Apply bitmap adjustment filters to an image" + Environment.NewLine+"Note: Not all filter modes use the additional parameter inputs."+ Environment.NewLine + "Built on the Accord Imaging Library" + Environment.NewLine + "http://accord-framework.net/", "Aviary 1", "Image")
         {
+            UpdateMessage();
         }
 
         /// <summary>
@@ -30,6 +30,14 @@ namespace Aviary.Macaw.GH.Filters
         {
             get { return GH_Exposure.quarternary; }
         }
+
+        string message = FilterModes.Invert.ToString();
+
+        private void UpdateMessage()
+        {
+            Message = message;
+        }
+
 
         /// <summary>
         /// Registers all the input parameters for this component.
@@ -77,7 +85,7 @@ namespace Aviary.Macaw.GH.Filters
             DA.GetData(2, ref numVal);
 
             Filter filter = new Filter();
-
+            
             switch ((FilterModes)mode)
             {
                 case FilterModes.GrayWorld:
@@ -129,6 +137,9 @@ namespace Aviary.Macaw.GH.Filters
                     filter = new Saturation(numVal);
                     break;
             }
+
+            message = ((FilterModes)mode).ToString();
+            UpdateMessage();
 
             image.Filters.Add(filter);
 

@@ -24,6 +24,13 @@ namespace Aviary.Macaw.GH.Filters
         {
         }
 
+        string message = FilterModes.Channel.ToString();
+
+        private void UpdateMessage()
+        {
+            Message = message;
+        }
+
         /// <summary>
         /// Set Exposure level for the component.
         /// </summary>
@@ -41,17 +48,17 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddIntegerParameter("Mode", "M", "", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
 
-            pManager.AddIntervalParameter("Red", "R", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager.AddIntervalParameter("Red", "R", "[0-1] Unitized adjustment value", GH_ParamAccess.item, new Interval(0, 1));
             pManager[2].Optional = true;
-            pManager.AddIntervalParameter("Green", "G", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager.AddIntervalParameter("Green", "G", "[0-1] Unitized adjustment value", GH_ParamAccess.item, new Interval(0, 1));
             pManager[3].Optional = true;
-            pManager.AddIntervalParameter("Blue", "B", "---", GH_ParamAccess.item, new Interval(0, 1));
+            pManager.AddIntervalParameter("Blue", "B", "[0-1] Unitized adjustment value", GH_ParamAccess.item, new Interval(0, 1));
             pManager[4].Optional = true;
 
-            pManager.AddBooleanParameter("Flip", "F", "---", GH_ParamAccess.item, true);
+            pManager.AddBooleanParameter("Outside", "F", "Flip between inside and outside range", GH_ParamAccess.item, true);
             pManager[5].Optional = true;
 
-            pManager.AddColourParameter("Color", "C", "---", GH_ParamAccess.item, Color.Black);
+            pManager.AddColourParameter("Color", "C", "Replacement Color", GH_ParamAccess.item, Color.Black);
             pManager[6].Optional = true;
 
             Param_Integer paramA = (Param_Integer)pManager[1];
@@ -137,6 +144,9 @@ namespace Aviary.Macaw.GH.Filters
                     image.Filters.Add(new YCbCr(valA.ToDomain(), valB.ToDomain(), valC.ToDomain(), flip, color));
                     break;
             }
+
+            message = ((FilterModes)mode).ToString();
+            UpdateMessage();
 
             DA.SetData(0, image);
             DA.SetData(1, filter);

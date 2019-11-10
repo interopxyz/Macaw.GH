@@ -31,19 +31,17 @@ namespace Aviary.Macaw.GH
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item, 0);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Mode", "M", "Set the ", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Size", "S", "---", GH_ParamAccess.item, 2);
+            pManager.AddIntegerParameter("Size", "S", "The pixel sample size", GH_ParamAccess.item, 2);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Tolerance", "T", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Error", "E", "The error tolerance [0-1]", GH_ParamAccess.item, 0.2);
             pManager[3].Optional = true;
-            pManager.AddNumberParameter("Threshold", "C", "---", GH_ParamAccess.item, 0.9);
+            pManager.AddNumberParameter("Threshold", "T", "Unitized brightness threshold [0-1]", GH_ParamAccess.item, 0.9);
             pManager[4].Optional = true;
-            pManager.AddNumberParameter("Alpha", "A", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Alpha", "A", "Corner detection threshold [0-1]", GH_ParamAccess.item, 1.0);
             pManager[5].Optional = true;
-            pManager.AddBooleanParameter("Optimize", "O", "---", GH_ParamAccess.item, true);
-            pManager[6].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
             foreach (TraceBitmap.TurnModes value in Enum.GetValues(typeof(TraceBitmap.TurnModes)))
@@ -71,6 +69,8 @@ namespace Aviary.Macaw.GH
             if (!DA.GetData(0, ref goo)) return;
             if (!goo.TryGetBitmap(ref bitmap)) return;
 
+            Bitmap bmp = bitmap.ToAccordBitmap(Filter.ImageTypes.Rgb32bpp);
+
             int mode = 0;
             DA.GetData(1, ref mode);
 
@@ -86,10 +86,7 @@ namespace Aviary.Macaw.GH
             double alpha = 1.0;
             DA.GetData(5, ref alpha);
 
-            bool optimize = true;
-            DA.GetData(6, ref optimize);
-
-            List<Polyline> polylines = bitmap.TraceToRhino(threshold, alpha, tolerance, size, optimize, (TraceBitmap.TurnModes)mode);
+            List<Polyline> polylines = bmp.TraceToRhino(threshold, alpha, tolerance, size, false, (TraceBitmap.TurnModes)mode);
 
             DA.SetDataList(0, polylines);
         }

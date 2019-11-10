@@ -32,19 +32,19 @@ namespace Aviary.Macaw.GH.Tracing
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
             pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
-            pManager.AddIntervalParameter("Width Domain", "W", "---", GH_ParamAccess.item);
+            pManager.AddIntervalParameter("Width Domain", "W", "The horizontal threshold domain for the filtered blobs", GH_ParamAccess.item);
             pManager[1].Optional = true;
-            pManager.AddIntervalParameter("Height Domain", "H", "---", GH_ParamAccess.item);
+            pManager.AddIntervalParameter("Height Domain", "H", "The vertical threshold domain for the filtered blobs", GH_ParamAccess.item);
             pManager[2].Optional = true;
-            pManager.AddColourParameter("Background Color", "C", "---", GH_ParamAccess.item);
+            pManager.AddColourParameter("Background Color", "C", "The background color to be ignored", GH_ParamAccess.item);
             pManager[3].Optional = true;
             pManager.AddBooleanParameter("Limit", "L", "---", GH_ParamAccess.item);
             pManager[4].Optional = true;
-            pManager.AddNumberParameter("Angles", "A", "---", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Angles", "A", "Rounding angular sample tolerance", GH_ParamAccess.item);
             pManager[5].Optional = true;
-            pManager.AddNumberParameter("Distances", "D", "---", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Distances", "D", "Rounding distance sample tolerance", GH_ParamAccess.item);
             pManager[6].Optional = true;
-            pManager.AddNumberParameter("Deviation", "X", "---", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Deviation", "X", "The deviation tolerance", GH_ParamAccess.item);
             pManager[7].Optional = true;
 
         }
@@ -54,10 +54,9 @@ namespace Aviary.Macaw.GH.Tracing
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddCurveParameter("Circles", "C", "---", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Triangles", "T", "---", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Quadrilaterals", "Q", "---", GH_ParamAccess.list);
-            pManager.AddCurveParameter("Polylines", "P", "---", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Circles", "C", "Detected circular shapes", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Triangles", "T", "Detected triangular shapes", GH_ParamAccess.list);
+            pManager.AddCurveParameter("Quadrilaterals", "Q", "Detected quadrilateral shapes", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -105,7 +104,6 @@ namespace Aviary.Macaw.GH.Tracing
             DA.SetDataList(0, shapes.GetCircles);
             DA.SetDataList(1, shapes.GetTriangles);
             DA.SetDataList(2, shapes.GetQuadrilaterals);
-            DA.SetDataList(3, shapes.GetPolylines);
         }
 
         /// <summary>

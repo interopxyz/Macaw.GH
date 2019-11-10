@@ -34,12 +34,12 @@ namespace Aviary.Macaw.GH.Tracing
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
-            pManager.AddIntegerParameter("Mode", "M", "---", GH_ParamAccess.item,0);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddIntegerParameter("Mode", "M", "Corner detection mode", GH_ParamAccess.item,0);
             pManager[1].Optional = true;
-            pManager.AddIntegerParameter("Threshold", "T", "---", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Threshold", "T", "Harris threshold [0-1]", GH_ParamAccess.item, 1.0);
             pManager[2].Optional = true;
-            pManager.AddNumberParameter("Value", "V", "---", GH_ParamAccess.item);
+            pManager.AddNumberParameter("Value", "V", "Sigma value", GH_ParamAccess.item,1.0);
             pManager[3].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -70,10 +70,11 @@ namespace Aviary.Macaw.GH.Tracing
 
             Corners corners = new Corners(bitmap);
 
-            int threshold = 10;
-            if (DA.GetData(2, ref threshold)) corners.Threshold = threshold;
+            double threshold = 1.0;
+            DA.GetData(2, ref threshold);
+            corners.Threshold = (int)(threshold*255.0);
 
-            double valueModifier = 10;
+            double valueModifier = 1.0;
             if (DA.GetData(3, ref valueModifier)) corners.Value = valueModifier;
 
             int mode = 0;

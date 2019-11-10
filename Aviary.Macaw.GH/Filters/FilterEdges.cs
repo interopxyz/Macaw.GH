@@ -22,6 +22,13 @@ namespace Aviary.Macaw.GH.Filters
         {
         }
 
+        string message = FilterModes.Difference.ToString();
+
+        private void UpdateMessage()
+        {
+            Message = message;
+        }
+
         /// <summary>
         /// Set Exposure level for the component.
         /// </summary>
@@ -38,13 +45,13 @@ namespace Aviary.Macaw.GH.Filters
             pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
             pManager.AddIntegerParameter("Mode", "M", "Select filter type", GH_ParamAccess.item, 0);
             pManager[1].Optional = true;
-            pManager.AddNumberParameter("Value A", "A", "---", GH_ParamAccess.item, 1.0);
+            pManager.AddNumberParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1.0);
             pManager[2].Optional = true;
-            pManager.AddIntegerParameter("Value B", "B", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[3].Optional = true;
-            pManager.AddIntegerParameter("Value C", "C", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[4].Optional = true;
-            pManager.AddIntegerParameter("Value D", "D", "---", GH_ParamAccess.item, 1);
+            pManager.AddIntegerParameter("Not Used", "-", "Parameter not used by this filter", GH_ParamAccess.item, 1);
             pManager[5].Optional = true;
 
             Param_Integer param = (Param_Integer)pManager[1];
@@ -129,6 +136,9 @@ namespace Aviary.Macaw.GH.Filters
                     image.Filters.Add(new Sobel());
                     break;
             }
+
+            message = ((FilterModes)mode).ToString();
+            UpdateMessage();
 
             DA.SetData(0, image);
             DA.SetData(1, filter);

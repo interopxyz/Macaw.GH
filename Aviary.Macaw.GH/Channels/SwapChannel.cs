@@ -23,7 +23,7 @@ namespace Aviary.Macaw.GH.Channels
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.primary; }
+            get { return GH_Exposure.quinary; }
         }
 
         public enum LimitedChannels { Alpha, Red, Green, Blue}

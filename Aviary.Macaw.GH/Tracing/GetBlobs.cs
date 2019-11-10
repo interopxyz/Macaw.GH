@@ -33,14 +33,14 @@ namespace Aviary.Macaw.GH.Tracing
         /// </summary>
         protected override void RegisterInputParams(GH_Component.GH_InputParamManager pManager)
         {
-            pManager.AddGenericParameter("Image", "I", "---", GH_ParamAccess.item);
-            pManager.AddIntervalParameter("Width Domain", "W", "---", GH_ParamAccess.item);
+            pManager.AddGenericParameter("Image", "I", "An Aviary Image or Bitmap", GH_ParamAccess.item);
+            pManager.AddIntervalParameter("Width Domain", "W", "The horizontal threshold domain for the filtered blobs", GH_ParamAccess.item, new Interval(5,100));
             pManager[1].Optional = true;
-            pManager.AddIntervalParameter("Height Domain", "H", "---", GH_ParamAccess.item);
+            pManager.AddIntervalParameter("Height Domain", "H", "The vertical threshold domain for the filtered blobs", GH_ParamAccess.item, new Interval(5, 100));
             pManager[2].Optional = true;
-            pManager.AddColourParameter("Background Color", "C", "---", GH_ParamAccess.item);
+            pManager.AddColourParameter("Background Color", "C", "The background color to be ignored", GH_ParamAccess.item, Color.DarkGray);
             pManager[3].Optional = true;
-            pManager.AddBooleanParameter("Limit", "L", "---", GH_ParamAccess.item);
+            pManager.AddBooleanParameter("Coupled Filtering", "F", "If true filter by height and width, if false filter by height or width.", GH_ParamAccess.item,false);
             pManager[4].Optional = true;
         }
 
@@ -49,10 +49,10 @@ namespace Aviary.Macaw.GH.Tracing
         /// </summary>
         protected override void RegisterOutputParams(GH_Component.GH_OutputParamManager pManager)
         {
-            pManager.AddRectangleParameter("Boundaries", "R", "---", GH_ParamAccess.list);
-            pManager.AddGenericParameter("Bitmap", "B", "---", GH_ParamAccess.list);
-            pManager.AddColourParameter("Colors", "C", "---", GH_ParamAccess.list);
-            pManager.AddPointParameter("Points", "P", "---", GH_ParamAccess.list);
+            pManager.AddRectangleParameter("Boundaries", "R", "The rectangular boundary of the blobs", GH_ParamAccess.list);
+            pManager.AddGenericParameter("Bitmap", "B", "The bitmap of the extracted blog corresponding ot the boundary", GH_ParamAccess.list);
+            pManager.AddColourParameter("Colors", "C", "The averaged color of the blob", GH_ParamAccess.list);
+            pManager.AddPointParameter("Points", "P", "Blob corner points", GH_ParamAccess.list);
         }
 
         /// <summary>
@@ -68,25 +68,23 @@ namespace Aviary.Macaw.GH.Tracing
 
             Blobs blobs = new Blobs();
 
-            Interval width = new Interval();
-            if(DA.GetData(1,ref width))
-            {
-                blobs.MinWidth = (int)width.T0;
-                blobs.MaxWidth = (int)width.T1;
-            }
+            Interval width = new Interval(5,100);
+            DA.GetData(1, ref width);
+            blobs.MinWidth = (int)width.T0;
+            blobs.MaxWidth = (int)width.T1;
 
-            Interval height = new Interval();
-            if (DA.GetData(2, ref height))
-            {
-                blobs.MinHeight = (int)height.T0;
-                blobs.MaxHeight = (int)height.T1;
-            }
-
-            Color color = new Color();
-            if (DA.GetData(3, ref color)) blobs.BackgroundColor = color;
+            Interval height = new Interval(5, 100);
+            DA.GetData(2, ref height);
+            blobs.MinHeight = (int)height.T0;
+            blobs.MaxHeight = (int)height.T1;
+ 
+            Color color = Color.DarkGray;
+            DA.GetData(3, ref color);
+            blobs.BackgroundColor = color;
 
             bool limit = false;
-            if (DA.GetData(4, ref limit)) blobs.Coupled = limit;
+            DA.GetData(4, ref limit);
+            blobs.Coupled = limit;
 
             blobs.CalculateBlobs(bitmap);
             

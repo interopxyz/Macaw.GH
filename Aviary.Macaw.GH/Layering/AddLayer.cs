@@ -73,7 +73,7 @@ namespace Aviary.Macaw.GH.Layering
             
             IGH_Goo gooM = null;
             Bitmap bitmapM = new Bitmap(100, 100);
-            if (DA.GetData(0, ref gooM)) if (goo.TryGetBitmap(ref bitmapM)) layer.Mask = bitmapM;
+            if (DA.GetData(1, ref gooM)) if (goo.TryGetBitmap(ref bitmapM)) layer.Mask = bitmapM;
 
             int blendMode = 0;
             DA.GetData(2, ref blendMode);

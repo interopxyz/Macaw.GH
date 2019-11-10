@@ -26,6 +26,13 @@ namespace Aviary.Macaw.GH.Filters
         {
         }
 
+        string message = FilterModes.HSL.ToString();
+
+        private void UpdateMessage()
+        {
+            Message = message;
+        }
+
         /// <summary>
         /// Set Exposure level for the component.
         /// </summary>
@@ -139,6 +146,9 @@ namespace Aviary.Macaw.GH.Filters
                     break;
 
             }
+
+            message = ((FilterModes)mode).ToString();
+            UpdateMessage();
 
             DA.SetData(0, image);
             DA.SetData(1, filter);

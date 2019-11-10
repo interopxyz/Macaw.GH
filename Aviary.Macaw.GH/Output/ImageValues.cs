@@ -26,7 +26,7 @@ namespace Aviary.Macaw.GH.Output
         /// </summary>
         public override GH_Exposure Exposure
         {
-            get { return GH_Exposure.senary; }
+            get { return GH_Exposure.primary; }
         }
 
         /// <summary>
