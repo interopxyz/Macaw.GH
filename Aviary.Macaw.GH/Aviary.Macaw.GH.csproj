@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{61E856F8-6A47-418B-94B2-FBDEDAE3D2C2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Aviary.Macaw.GH</RootNamespace>
+    <AssemblyName>Aviary.Macaw.GH</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GH_IO, Version=1.0.0.0, Culture=neutral, PublicKeyToken=6a29997d2e6b4f97, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\GH_IO.dll</HintPath>
+    </Reference>
+    <Reference Include="Grasshopper, Version=1.0.0.20, Culture=neutral, PublicKeyToken=dda4f5ec2cd80803, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grasshopper.0.9.76\lib\net35\Grasshopper.dll</HintPath>
+    </Reference>
+    <Reference Include="RhinoCommon, Version=5.1.30000.16, Culture=neutral, PublicKeyToken=552281e97c755530, processorArchitecture=MSIL">
+      <HintPath>..\packages\RhinoCommon.5.12.50810.13095\lib\net35\RhinoCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aviary.Macaw.GHInfo.cs" />
+    <Compile Include="Channels\SwapChannel.cs" />
+    <Compile Include="Channels\SwapChannels.cs" />
+    <Compile Include="Construct\BuildBitmap.cs" />
+    <Compile Include="Construct\CompositeImages.cs" />
+    <Compile Include="Construct\LoadBitmap.cs" />
+    <Compile Include="Filters\FilterBlob.cs" />
+    <Compile Include="Filters\FilterDifference.cs" />
+    <Compile Include="Filters\FilterEdges.cs" />
+    <Compile Include="Filters\FilterFigure.cs" />
+    <Compile Include="Filters\FilterGrayscale.cs" />
+    <Compile Include="Filters\FilterDithering.cs" />
+    <Compile Include="Filters\FilterExtract.cs" />
+    <Compile Include="Filters\FilterAdjust.cs" />
+    <Compile Include="Filters\ApplyFilters.cs" />
+    <Compile Include="Filters\FilterEffects.cs" />
+    <Compile Include="Filters\FilterFilter.cs" />
+    <Compile Include="Filters\FilterSharpen.cs" />
+    <Compile Include="Filters\FilterLevels.cs" />
+    <Compile Include="Filters\FilterThreshold.cs" />
+    <Compile Include="Layering\MergeLayers.cs" />
+    <Compile Include="Layering\ModifyLayer.cs" />
+    <Compile Include="Layering\AddLayer.cs" />
+    <Compile Include="Layering\XformLayer.cs" />
+    <Compile Include="Output\ExportBitmap.cs" />
+    <Compile Include="Output\ImageProperties.cs" />
+    <Compile Include="Output\ImageToBitmap.cs" />
+    <Compile Include="Output\ImageValueAt.cs" />
+    <Compile Include="Output\ImageValues.cs" />
+    <Compile Include="Output\ImageViewer.cs" />
+    <Compile Include="Construct\Procedural\CellularBase.cs" />
+    <Compile Include="Construct\Procedural\Fractal.cs" />
+    <Compile Include="Construct\Procedural\NoiseBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Tracing\GetBlobs.cs" />
+    <Compile Include="Tracing\GetCorners.cs" />
+    <Compile Include="Tracing\GetShapes.cs" />
+    <Compile Include="Tracing\TraceImage.cs" />
+    <Compile Include="Transform\Crop.cs" />
+    <Compile Include="Transform\Mirror.cs" />
+    <Compile Include="Transform\Move.cs" />
+    <Compile Include="Transform\Scale.cs" />
+    <Compile Include="Transform\Polar.cs" />
+    <Compile Include="Transform\Resize.cs" />
+    <Compile Include="Transform\Rotate.cs" />
+    <Compile Include="Transform\Shrink.cs" />
+    <Compile Include="Types\Extensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Resources\Macaw-sm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Aviary.Macaw\Aviary.Macaw\Aviary.Macaw.csproj">
+      <Project>{f63d18e9-6d82-41c1-ac61-33653e9a137a}</Project>
+      <Name>Aviary.Macaw</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Aviary.Wind\Aviary.Wind\Aviary.Wind.csproj">
+      <Project>{1dcf2e8c-b3e6-4bb9-aedb-ae0e1d4af9f4}</Project>
+      <Name>Aviary.Wind</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExportBitmap copy 324.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExportBitmap24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bitmap_Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ImageViewer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ImageViewer_Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Noise_Noise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Noise_Cellular.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Noise_Fractal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BuildBitmap-A.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Aviary-Logo-sm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenBitmapFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ModifyLayerProperties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AddLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Composite2Images.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MergeLayers-01.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MergeLayers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SamplePixels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BitmapProperties.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SamplePixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceShapesA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceBlobsA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceCornersA.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TraceBitmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GetPixels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SetPixels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GetPixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveBitmap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\XformLayer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Shrink.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Crop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Mirror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Move.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Polar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Resize_B.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Rotate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filter_Xform-Scale_C.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swap_Channels.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swap_Channel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Swap_ChannelsX.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ImageToBitmapC.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edges1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Effects1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Figures1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Filters1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Grayscale1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Levels1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MonaLisa_A.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Sharpen1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Threshold1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Adjust1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blob0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Channel_Use1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Difference1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dither1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edges0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Base.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>Copy "$(TargetPath)" "$(TargetDir)$(ProjectName).gha"
+Erase "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <FallbackCulture>en-US</FallbackCulture>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <StartProgram>C:\Program Files\Rhino 6\System\Rhino.exe</StartProgram>
+    <StartArguments>
+    </StartArguments>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <Import Project="packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
+  <Import Project="packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
+  <Import Project="..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets" Condition="Exists('..\packages\RhinoCommon.5.12.50810.13095\build\net35\RhinoCommon.targets')" />
+  <Import Project="..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets" Condition="Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Grasshopper.0.9.76\build\net35\Grasshopper.targets'))" />
+  </Target>
+</Project>
